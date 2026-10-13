@@ -909,7 +909,7 @@
       }
 
       /* ---------- Supabase backend ---------- */
-      var SB_URL = 'sb_publishable__GYadVYPbyTYjgwAepPtdQ_PjJ_C6j1', SB_KEY = 'sb_publishable__GYadVYPbyTYjgwAepPtdQ_PjJ_C6j1';
+      var SB_URL = 'https://todhktlwtdqzedqxeabm.supabase.co', SB_KEY = 'sb_publishable__GYadVYPbyTYjgwAepPtdQ_PjJ_C6j1';
       var sb = window.supabase.createClient(SB_URL, SB_KEY);
       function save(r) {return sb.from('requests').insert({data: r}).then(function (x) {if (x.error) throw x.error})}
       function setStatus(r, s) {return sb.from('requests').update({status: s}).eq('id', r.id).then(function (x) {if (x.error) alert(x.error.message); else load()})}
