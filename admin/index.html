@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>24 Hour Budapest Moving</title>
+<style>
+:root{--blue:#0B2A5B;--blue2:#16407F;--bg:#F4F6F9;--card:#fff;--line:#DDE3EC;--ink:#14213D;--mute:#5A6785;--cta:#FF7A1A;--ctaink:#14213D;--ok:#0E8A6B;--bad:#B3261E;--wa:#1FAF55;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0A1426;--card:#122241;--line:#27395F;--ink:#EEF2FA;--mute:#9DAAC8;--blue:#07142C}}
+:root[data-theme="dark"]{--bg:#0A1426;--card:#122241;--line:#27395F;--ink:#EEF2FA;--mute:#9DAAC8;--blue:#07142C}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Microsoft YaHei","PingFang SC",sans-serif}
+h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em}
+header{background:var(--blue);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:6}
+.logo{font-weight:900;font-size:1.1rem}.logo b{color:var(--cta)}
+.hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.langs{display:flex;gap:3px;background:rgba(255,255,255,.12);padding:3px;border-radius:999px}
+.langs button,nav button{font:inherit;font-weight:700;font-size:.88rem;color:#fff;background:transparent;border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:#fff;color:var(--blue)}
+nav button{border:2px solid transparent}nav button[aria-selected="true"]{border-color:#fff;background:rgba(255,255,255,.16)}
+.hero{background:var(--blue);color:#fff;padding:22px 20px 112px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(1.9rem,5.5vw,3rem);max-width:660px;position:relative;z-index:1;animation:rise .6s ease both}
+.hero p{max-width:560px;color:#C9D6F0;margin:10px 0 0;position:relative;z-index:1;animation:rise .6s .15s ease both}
+.qc{position:relative;z-index:1;margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;animation:rise .6s .3s ease both}
+.qc span{font-weight:700;color:#C9D6F0}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:999px;font-weight:800;text-decoration:none;font-size:.95rem;color:#fff;border:2px solid transparent}
+.pill.w{background:var(--wa)}.pill.i{background:#C13584}.pill.e{background:var(--blue2);border-color:#5C80C4}
+.pill:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.scene{position:absolute;left:0;right:0;bottom:0;height:96px;pointer-events:none}
+.sky{position:absolute;left:0;bottom:6px;width:100%;height:70px}
+.rd{position:absolute;left:0;right:0;bottom:0;height:8px;background:#06112A;background-image:repeating-linear-gradient(90deg,#FFB36B 0 18px,transparent 18px 38px);background-size:38px 2px;background-repeat:repeat-x;background-position:0 3px;animation:roll 1s linear infinite}
+@keyframes roll{to{background-position:-38px 3px}}
+.tr{position:absolute;bottom:6px;left:-100px;animation:tdrive 16s linear infinite}.tr svg{display:block;animation:bob .5s ease-in-out infinite alternate}
+@keyframes tdrive{to{transform:translateX(calc(100vw + 140px))}}@keyframes bob{to{transform:translateY(-1.5px)}}
+.wh{transform-box:fill-box;transform-origin:center;animation:spin .5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.cloud{position:absolute;height:14px;width:60px;border-radius:99px;background:rgba(255,255,255,.18);animation:drift 40s linear infinite}
+.cloud:nth-child(1){top:18px;animation-delay:-8s}.cloud:nth-child(2){top:44px;width:90px;animation-duration:60s;animation-delay:-20s}
+@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 120px))}}
+.boxes{position:absolute;right:6%;bottom:14px;font-size:22px;animation:hop 2.4s ease-in-out infinite}.boxes:nth-of-type(2){right:12%;animation-delay:.6s}
+@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-16px) rotate(-8deg)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+main{max-width:860px;margin:-12px auto 30px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 6px 20px rgba(11,42,91,.08)}
+.prog{position:relative;height:8px;background:var(--line);border-radius:99px;margin:6px 4px 30px}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:var(--cta);transition:width .5s ease;width:12%}
+.pt{position:absolute;top:-22px;transition:left .5s ease;transform:translateX(-50%);font-size:22px;left:12%}
+.sl{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;color:var(--mute);margin:-18px 0 18px}.sl .on{color:var(--ink)}
+.step{display:none;animation:rise .35s ease both}.step.on{display:block}
+.step h2{font-size:1.35rem;margin-bottom:4px}.hint{color:var(--mute);margin:0 0 14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.tile{position:relative;border:2px solid var(--line);border-radius:14px;background:var(--bg);transition:border-color .2s,background .2s}
+.tile.on{border-color:var(--cta);background:rgba(255,122,26,.1)}
+.tm{width:100%;font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);background:transparent;border:0;padding:14px 6px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tm i{font-style:normal;font-size:28px;transition:transform .25s}.tile.pop .tm i{animation:pop .4s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(.4) rotate(-15deg)}to{transform:none}}
+.q{position:absolute;top:-8px;right:-8px;min-width:26px;height:26px;border-radius:99px;background:var(--cta);color:var(--ctaink);font-weight:900;display:none;place-items:center;padding:0 6px}
+.tile.on .q{display:grid}
+.mn{display:none;position:absolute;top:-8px;left:-8px;width:26px;height:26px;border-radius:99px;border:0;background:var(--blue2);color:#fff;font-weight:900;cursor:pointer}.tile.on .mn{display:block}
+.row{display:flex;gap:8px;margin-top:14px}.row input{flex:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:12px}
+label{display:block;font-weight:700;font-size:.9rem;margin-bottom:4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:11px 12px;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--cta);outline-offset:2px;border-color:var(--blue2)}
+.route{height:74px;margin:6px 0 14px;position:relative}.route svg{width:100%;height:100%}
+.van{position:absolute;left:0;top:0;font-size:22px;offset-path:path("M30 50 C 130 -10, 230 -10, 330 50");offset-rotate:0deg;animation:go 4s ease-in-out infinite}
+@keyframes go{from{offset-distance:0%}to{offset-distance:100%}}
+.pin{position:absolute;bottom:0;font-size:22px}.pin.a{left:10px}.pin.b{right:10px;animation:bounce 1.2s infinite}@keyframes bounce{50%{transform:translateY(-6px)}}
+.chk{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;font-weight:700;margin-bottom:12px}.chk input{width:20px;height:20px}.chk:has(input:checked){border-color:var(--cta);background:rgba(255,122,26,.1)}
+.cms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.cm{border:2px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;font-weight:800;cursor:pointer;margin:0;transition:all .2s}
+.cm input{position:absolute;opacity:0;width:1px;height:1px}.cm i{display:block;font-style:normal;font-size:26px}
+.cm:has(input:checked){border-color:var(--cta);background:rgba(255,122,26,.12);transform:translateY(-2px)}.cm:has(input:focus-visible){outline:3px solid var(--cta)}
+.err{color:var(--bad);font-weight:700;min-height:1.3em;margin:6px 0}.err:not(:empty){animation:shake .3s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:10px}
+.btn{border:0;border-radius:12px;padding:13px 22px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .2s;text-decoration:none;display:inline-block}
+.btn:active{transform:scale(.97)}
+.cta{background:var(--cta);color:var(--ctaink);box-shadow:0 4px 0 #C85A0A;position:relative;overflow:hidden}.cta:hover{transform:translateY(-1px)}
+.cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.5s infinite}@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}.sm{padding:8px 12px;font-size:.88rem;border-radius:9px}
+.btn.w{background:var(--wa);color:#fff;box-shadow:0 4px 0 #14803D}.btn.ig{background:#C13584;color:#fff}.btn.em{background:var(--blue2);color:#fff}
+.done{text-align:center;padding:16px 6px}.done h2{margin:8px 0}
+.dl{position:relative;height:64px;margin:6px 0 14px;overflow:hidden;border-bottom:3px dashed var(--line)}
+.dl .t{position:absolute;bottom:4px;font-size:38px;animation:arrive 5s ease-in-out infinite}
+.dl .bx{position:absolute;bottom:6px;font-size:22px;animation:hop 1.6s ease-in-out infinite}
+@keyframes arrive{0%{left:-15%}40%,60%{left:50%}100%{left:112%}}
+.info{max-width:860px;margin:0 auto 40px;padding:0 16px;display:grid;gap:14px}
+.ig3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.ig3 .card{padding:18px}.ic{font-size:30px;display:inline-block;animation:bob2 2.2s ease-in-out infinite}.ig3 .card:nth-child(2) .ic{animation-delay:.4s}.ig3 .card:nth-child(3) .ic{animation-delay:.8s}
+@keyframes bob2{50%{transform:translateY(-5px)}}
+.meta{color:var(--mute);font-size:.92rem}.clock{display:flex;align-items:center;gap:10px;font-weight:800}.clock b{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,138,107,.6)}100%{box-shadow:0 0 0 12px transparent}}
+footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;font-size:.92rem}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;transition:transform .3s;z-index:9;max-width:90vw}#toast.on{transform:translate(-50%,0)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:var(--bg);border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:1.8rem;color:var(--blue2)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.chip{padding:7px 14px;border-radius:999px;border:2px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.chip[aria-pressed="true"]{background:var(--blue2);border-color:var(--blue2);color:#fff}
+.req{border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px;animation:rise .3s ease both}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.78rem;font-weight:800;color:#fff;margin-left:6px}.s-new{background:var(--blue2)}.s-confirmed{background:var(--ok)}.s-done{background:#5A6785}.s-declined{background:var(--bad)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.lg{max-width:440px;margin:32px auto}.lg h2{margin-bottom:6px}.lg .steps{display:flex;gap:8px;margin:14px 0 18px;font-size:.82rem;color:var(--mute)}
+.lg .steps span{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.lg .steps span.on{border-color:var(--cta);color:var(--ink);font-weight:700}.lg .steps span.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
+.pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);font:inherit;font-size:.82rem;font-weight:700;background:transparent;border:0;color:var(--blue2);cursor:pointer;padding:8px}
+.lgbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;font-size:.88rem;color:var(--mute)}
+</style>
+
+</head>
+<body>
+<header>
+<div class="logo">24 Hour <b>Budapest</b> Moving</div>
+<div class="hd">
+<div class="langs" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="zh">中文</button><button data-l="hu">Magyar</button></div></div>
+</header>
+
+<section id="v-book">
+<div class="hero">
+<h1 data-i="h1">Moving Budapest, any hour of the day.</h1>
+<p data-i="hp">Two students, one van, one clear price. Tell us what needs to move and we'll confirm quickly, day or night.</p>
+<div class="qc"><span data-i="qc">Talk to us now:</span><a class="pill w" data-wa href="#">WhatsApp</a><a class="pill i" data-ig href="#">Instagram</a><a class="pill e" data-mail href="#"><span data-i="cem">Email</span></a></div>
+<div class="scene" aria-hidden="true"><div class="cloud"></div><div class="cloud"></div><div class="boxes">📦</div><div class="boxes">🗄️</div>
+<svg class="sky" viewBox="0 0 800 70" preserveAspectRatio="xMidYMax slice"><g fill="#2B5398" opacity=".75"><path d="M0 70V40Q60 20 120 38V70Z"/><rect x="20" y="28" width="70" height="14"/><rect x="55" y="14" width="8" height="14"/><path d="M52 14L59 4L66 14Z"/><rect x="330" y="28" width="10" height="42"/><rect x="430" y="28" width="10" height="42"/><rect x="240" y="58" width="300" height="4"/><rect x="600" y="40" width="150" height="30"/><path d="M650 40Q675 4 700 40Z"/><rect x="674" y="0" width="2" height="10"/><rect x="610" y="28" width="6" height="12"/><rect x="734" y="28" width="6" height="12"/></g><path d="M240 60Q290 30 335 30Q385 62 435 30Q480 30 540 60" fill="none" stroke="#2B5398" stroke-width="3" opacity=".75"/></svg>
+<div class="tr"><svg width="74" height="38" viewBox="0 0 74 38"><rect x="2" y="4" width="46" height="22" rx="3" fill="#fff"/><path d="M48 10h14l8 9v7H48Z" fill="#FF7A1A"/><path d="M52 13h9l5 6H52Z" fill="#0B2A5B" opacity=".7"/><rect x="10" y="11" width="30" height="3" rx="1.5" fill="#0B2A5B" opacity=".25"/><circle class="wh" cx="18" cy="29" r="6" fill="#14213D"/><circle class="wh" cx="58" cy="29" r="6" fill="#14213D"/><circle cx="18" cy="29" r="2" fill="#FFB36B"/><circle cx="58" cy="29" r="2" fill="#FFB36B"/></svg></div>
+<div class="rd"></div></div>
+</div>
+
+<main><div class="card" id="wiz">
+<div class="prog"><div class="fill" id="fill"></div><div class="pt" id="pt">🚚</div></div>
+<div class="sl" id="sl"><span data-i="st1">Items</span><span data-i="st2">Route</span><span data-i="st3">When</span><span data-i="st4">You</span></div>
+
+<div class="step on" data-s="0"><h2 data-i="s1">What are we moving?</h2><p class="hint" data-i="s1h">Tap an item to add it. Use + and − to change the number.</p>
+<div class="tiles" id="tiles"></div>
+<div class="row"><input id="oth" data-ph="ph_other" placeholder="e.g. piano, bike" aria-label="Other"><button type="button" class="btn ghost sm" id="addo" data-i="addb">Add</button></div><div id="cust" class="meta" style="margin-top:8px"></div>
+<div class="err" id="e0" role="alert"></div></div>
+
+<div class="step" data-s="1"><h2 data-i="s2">Where to?</h2>
+<div class="route" aria-hidden="true"><svg viewBox="0 0 360 74"><path d="M30 50 C 130 -10, 230 -10, 330 50" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="6 7" opacity=".4"/></svg><span class="pin a">📍</span><span class="van">🚚</span><span class="pin b">🏠</span></div>
+<div class="grid"><div><label for="fromD" data-i="ff">Pick-up district</label><select id="fromD"></select></div><div><label for="from" data-i="ffa">Pick-up street and number</label><input id="from" autocomplete="street-address"></div>
+<div><label for="ffl" data-i="ffl">Floor</label><select id="ffl"><option value="Ground floor" data-i="fl0">Ground floor</option><option value="Upstairs, lift" data-i="fl1">Upstairs, with lift</option><option value="Upstairs, no lift" data-i="fl2">Upstairs, no lift</option></select></div></div>
+<div class="grid"><div><label for="toD" data-i="ft">Drop-off district or destination</label><select id="toD"></select></div><div><label for="to" data-i="fta">Drop-off street and number</label><input id="to"></div>
+<div><label for="tfl" data-i="ftl">Floor</label><select id="tfl"><option value="Ground floor" data-i="fl0">Ground floor</option><option value="Upstairs, lift" data-i="fl1">Upstairs, with lift</option><option value="Upstairs, no lift" data-i="fl2">Upstairs, no lift</option></select></div></div>
+<div class="grid" id="abroad" hidden><div><label for="ctry" data-i="fcy">Country</label><input id="ctry"></div><div><label for="abA" data-i="fab">Full address abroad (type it)</label><input id="abA"></div></div>
+<div class="err" id="e1" role="alert"></div></div>
+
+<div class="step" data-s="2"><h2 data-i="s3">When?</h2>
+<label class="chk"><input type="checkbox" id="asap"> <span data-i="asap">As soon as possible (24/7)</span></label>
+<div class="grid" id="dt"><div><label for="date" data-i="fd">Date</label><input id="date" type="date"></div><div><label for="time" data-i="ftm">Time</label><input id="time" type="time" value="09:00"></div></div>
+<label for="notes" data-i="fn">Notes (parking, door codes, fragile items)</label><textarea id="notes" rows="2"></textarea>
+<div class="err" id="e2" role="alert"></div></div>
+
+<div class="step" data-s="3"><h2 data-i="s4">How should we reach you?</h2>
+<div class="grid"><div><label for="name" data-i="fnm">Your name</label><input id="name" autocomplete="name"></div><div><label for="phone" data-i="fp">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+36 …"></div></div>
+<label data-i="cm">Contact me on</label>
+<div class="cms"><label class="cm"><input type="radio" name="cm" value="w" checked><i>💬</i>WhatsApp</label><label class="cm"><input type="radio" name="cm" value="i"><i>📸</i>Instagram</label><label class="cm"><input type="radio" name="cm" value="e"><i>✉️</i><span data-i="cem">Email</span></label></div>
+<div id="igw" hidden><label for="igu" data-i="fig">Instagram username</label><input id="igu" placeholder="@"></div>
+<div id="emw" hidden><label for="email" data-i="fe">Email</label><input id="email" type="email" autocomplete="email"></div>
+<div class="err" id="e3" role="alert"></div></div>
+
+<div class="nav"><button type="button" class="btn ghost" id="back" data-i="back" hidden>Back</button><span></span><button type="button" class="btn cta" id="next" data-i="next">Next</button></div>
+</div>
+
+<div class="card done" id="done" hidden><div class="dl" aria-hidden="true"><span class="t">🚚</span><span class="bx" style="left:20%">📦</span><span class="bx" style="left:60%;animation-delay:.5s">🗄️</span></div>
+<h2 data-i="ok0">Request ready!</h2><p class="meta" data-i="ok1">Tap the button if your app didn't open. Your details are already filled in.</p>
+<div class="acts" style="justify-content:center"><a class="btn cta" id="again" href="#" target="_blank" rel="noopener"></a><button class="btn ghost" id="newr" data-i="ok3">New request</button></div></div>
+</main>
+
+<div class="info">
+<h2 data-i="sv0">What we move</h2>
+<div class="ig3"><div class="card"><span class="ic">🏢</span><h3 data-i="v1t">Flats and studios</h3><p class="meta" data-i="v1p">Loading, transport and carrying in, day and night.</p></div>
+<div class="card"><span class="ic">🗄️</span><h3 data-i="v2t">Wardrobes, tables, bulky items</h3><p class="meta" data-i="v2p">Careful transport between any two addresses in Budapest.</p></div>
+<div class="card"><span class="ic">🌍</span><h3 data-i="v3t">Local delivery and moves abroad</h3><p class="meta" data-i="v3p">Pick-up and drop-off at agreed times, abroad too.</p></div></div>
+<div class="card clock"><b></b><span data-i="ar0">Open 24/7 across all 23 districts</span></div>
+<div class="card"><h3 data-i="ab0">Two students, one van</h3><p class="meta" data-i="ab1" style="margin:6px 0 0">We're students in Budapest. Because help with a move outside office hours is hard to find, we pick up when others don't: early morning, late evening, weekends.</p></div>
+</div>
+</section>
+
+<footer><span data-i="foot">Residential moves and bulky item transport across Budapest.</span> · 24 Hour Budapest Moving</footer>
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
+var esc=function(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML};
+/* ===== SUPABASE (public values, safe to keep in the page) ===== */
+var SUPABASE_URL="PASTE_YOUR_PROJECT_URL_HERE",SUPABASE_ANON_KEY="PASTE_YOUR_ANON_PUBLIC_KEY_HERE";
+/* ================================================================ */
+var WA="https://wa.me/36205136024",IGP="https://www.instagram.com/24hbudapestmoving/",IGDM="https://ig.me/m/24hbudapestmoving",MAIL="853ephraim@gmail.com";
+
+/* ---------- translations (English = the page) ---------- */
+var T={
+hu:{n_book:"Foglalás",h1:"Költöztetés Budapesten, a nap bármely órájában.",hp:"Két egyetemista, egy furgon, egy világos ár. Mondja el, mit kell elvinni, és gyorsan visszaigazoljuk, nappal vagy éjjel.",qc:"Írjon nekünk most:",cem:"E-mail",
+st1:"Tárgyak",st2:"Útvonal",st3:"Időpont",st4:"Ön",s1:"Mit költöztetünk?",s1h:"Koppintson egy tárgyra a hozzáadáshoz. A + és − gombbal módosíthatja a darabszámot.",
+i_ward:"Szekrény",i_table:"Asztal",i_sofa:"Kanapé",i_bed:"Ágy",i_fridge:"Hűtő",i_wash:"Mosógép",i_box:"Dobozok",i_chair:"Székek",ph_other:"pl. zongora, kerékpár",addb:"Hozzáad",
+s2:"Hová megyünk?",ff:"Felvétel kerülete",ffa:"Felvétel utcája, házszáma",ffl:"Emelet",fl0:"Földszint",fl1:"Emeleten, van lift",fl2:"Emeleten, nincs lift",ft:"Leadás kerülete vagy célállomás",fta:"Leadás utcája, házszáma",ftl:"Emelet",fcy:"Ország",fab:"Teljes külföldi cím (kézzel írja be)",
+s3:"Mikor?",asap:"Minél előbb (0–24)",fd:"Dátum",ftm:"Időpont",fn:"Megjegyzés (parkolás, kapukód, törékeny tárgyak)",
+s4:"Hogyan érjük el Önt?",fnm:"Az Ön neve",fp:"Telefonszám",fe:"E-mail",fig:"Instagram felhasználónév",cm:"Ezen keressen minket",
+back:"Vissza",next:"Tovább",sendw:"Küldés WhatsAppon",sendi:"Küldés Instagramon",sende:"Küldés e-mailben",
+ok0:"A kérés elkészült!",ok1:"Koppintson a gombra, ha az alkalmazás nem nyílt meg. Az adatok már ki vannak töltve.",ok3:"Új kérés",
+sv0:"Mit költöztetünk",v1t:"Lakások és garzonok",v1p:"Berakodás, szállítás és beszállítás, éjjel-nappal.",v2t:"Szekrények, asztalok, nagy tárgyak",v2p:"Gondos szállítás bármely két budapesti cím között.",v3t:"Helyi kiszállítás és külföldi költözés",v3p:"Felvétel és leadás egyeztetett időpontban, külföldre is.",
+ar0:"Nonstop nyitva, mind a 23 kerületben",ab0:"Két egyetemista, egy furgon",ab1:"Budapesten tanuló diákok vagyunk. Mivel munkaidőn kívül nehéz segítséget találni költözéshez, mi akkor veszünk fel, amikor más nem: kora reggel, késő este, hétvégén.",
+foot:"Lakásköltöztetés és nagydarab tárgyak szállítása egész Budapesten.",
+e_items:"Adjon hozzá legalább egy tárgyat.",e_fd:"Válasszon kerületet mindkét helyhez.",e_from:"Adja meg a felvételi és a leadási címet.",e_ctry:"Adja meg az országot és a teljes címet.",e_date:"Válasszon dátumot és időpontot, vagy jelölje be a „minél előbb” lehetőséget.",
+e_name:"Kérjük, adja meg a nevét.",e_phone:"Adjon meg érvényes telefonszámot.",e_mail:"Adjon meg érvényes e-mail-címet.",e_ig:"Adja meg az Instagram felhasználónevét.",cp:"Az adatokat kimásoltuk. Illessze be a csevegésbe.",
+ch:"Válasszon…",ot:"Magyarországi más település (cím lent)",abr:"Külföld, Magyarországon kívül (cím lent)",dist:function(r,n){return r+". kerület – "+n}},
+zh:{n_book:"预约搬家",h1:"布达佩斯搬家，全天候随叫随到。",hp:"两位学生，一辆货车，一个清晰的价格。告诉我们要搬什么，我们会在白天或夜晚尽快确认。",qc:"立即联系我们：",cem:"电子邮件",
+st1:"物品",st2:"路线",st3:"时间",st4:"联系方式",s1:"要搬运什么？",s1h:"点击物品即可添加，用 + 和 − 调整数量。",
+i_ward:"衣柜",i_table:"桌子",i_sofa:"沙发",i_bed:"床",i_fridge:"冰箱",i_wash:"洗衣机",i_box:"纸箱",i_chair:"椅子",ph_other:"例如：钢琴、自行车",addb:"添加",
+s2:"搬到哪里？",ff:"取货所在区",ffa:"取货街道及门牌号",ffl:"楼层",fl0:"一楼",fl1:"楼上，有电梯",fl2:"楼上，无电梯",ft:"送达所在区或目的地",fta:"送达街道及门牌号",ftl:"楼层",fcy:"国家",fab:"国外完整地址（请手动填写）",
+s3:"什么时间？",asap:"尽快（全天24小时）",fd:"日期",ftm:"时间",fn:"备注（停车、门禁码、易碎物品）",
+s4:"如何联系您？",fnm:"您的姓名",fp:"电话号码",fe:"电子邮箱",fig:"Instagram 用户名",cm:"请通过以下方式联系我",
+back:"上一步",next:"下一步",sendw:"通过 WhatsApp 发送",sendi:"通过 Instagram 发送",sende:"通过电子邮件发送",
+ok0:"请求已准备好！",ok1:"如果应用没有自动打开，请点击按钮。您的信息已自动填好。",ok3:"新的请求",
+sv0:"我们搬运的内容",v1t:"住宅与单间搬家",v1p:"装车、运输、搬入新居，全天候服务。",v2t:"衣柜、桌子等大件物品",v2p:"在布达佩斯任意两个地址之间小心运输。",v3t:"同城配送与跨国搬家",v3p:"按约定时间取货和送货，也可前往国外。",
+ar0:"全天24小时，覆盖全部23个区",ab0:"两位学生，一辆货车",ab1:"我们是在布达佩斯读书的学生。因为非办公时间很难找到搬家帮手，所以我们决定在别人不接电话的时候接起电话：清晨、深夜、周末都可以。",
+foot:"布达佩斯全市住宅搬家与大件物品运输。",
+e_items:"请至少添加一件物品。",e_fd:"请为两个地点都选择所在区。",e_from:"请填写取货地址和送达地址。",e_ctry:"请填写国家和完整地址。",e_date:"请选择日期和时间，或勾选“尽快”。",
+e_name:"请输入您的姓名。",e_phone:"请输入有效的电话号码。",e_mail:"请输入有效的邮箱地址。",e_ig:"请输入您的 Instagram 用户名。",cp:"信息已复制，请粘贴到聊天窗口。",
+ch:"请选择…",ot:"匈牙利其他城镇（请在下方填写地址）",abr:"国外，匈牙利以外（请在下方填写地址）",dist:function(r,n,i){return"第"+i+"区 "+n}}};
+var EN={},lang="en";
+$$("[data-i]").forEach(function(e){if(!(e.dataset.i in EN))EN[e.dataset.i]=e.innerHTML});
+var PH=$("#oth").placeholder;
+var X={i_ward:"Wardrobe",i_table:"Table",i_sofa:"Sofa",i_bed:"Bed",i_fridge:"Fridge",i_wash:"Washing machine",i_box:"Boxes",i_chair:"Chairs",sendw:"Send on WhatsApp",sendi:"Send on Instagram",sende:"Send by email",
+e_items:"Add at least one item.",e_fd:"Choose a district for both places.",e_from:"Enter the pick-up and drop-off addresses.",e_ctry:"Enter the country and the full address.",e_date:"Choose a date and time, or tick “as soon as possible”.",
+e_name:"Please enter your name.",e_phone:"Enter a valid phone number.",e_mail:"Enter a valid email address.",e_ig:"Enter your Instagram username.",cp:"Details copied. Paste them in the chat.",
+ch:"Choose…",ot:"Other town in Hungary (type address below)",abr:"Abroad, outside Hungary (type address below)",dist:function(r,n){return"District "+r+" – "+n}};
+for(var k in X)EN[k]=X[k];
+function t(k){return(lang!=="en"&&T[lang]&&T[lang][k])||EN[k]}
+
+/* ---------- data ---------- */
+var D=[["I","Budavár"],["II","Pasarét, Rózsadomb"],["III","Óbuda-Békásmegyer"],["IV","Újpest"],["V","Belváros-Lipótváros"],["VI","Terézváros"],["VII","Erzsébetváros"],["VIII","Józsefváros"],["IX","Ferencváros"],["X","Kőbánya"],["XI","Újbuda"],["XII","Hegyvidék"],["XIII","Újlipótváros, Angyalföld"],["XIV","Zugló"],["XV","Rákospalota, Pestújhely"],["XVI","Mátyásföld, Sashalom"],["XVII","Rákosmente"],["XVIII","Pestszentlőrinc-Pestszentimre"],["XIX","Kispest"],["XX","Pesterzsébet"],["XXI","Csepel"],["XXII","Budafok-Tétény"],["XXIII","Soroksár"]];
+var IT=[["ward","🗄️"],["table","🍽️"],["sofa","🛋️"],["bed","🛏️"],["fridge","🧊"],["wash","🧺"],["box","📦"],["chair","🪑"]];
+var qty={},cust=[],step=0;
+
+function fillD(id){var s=$("#"+id),old=s.value;s.innerHTML="";
+ function a(v,x){var o=document.createElement("option");o.value=v;o.textContent=x;s.appendChild(o)}
+ a("",t("ch"));D.forEach(function(d,i){a("D"+d[0],(lang==="zh"?T.zh.dist:lang==="hu"?T.hu.dist:EN.dist)(d[0],d[1],i+1))});a("OTHER",t("ot"));a("ABROAD",t("abr"));s.value=old}
+function tiles(){var box=$("#tiles");box.innerHTML="";
+ IT.forEach(function(it){var k=it[0],n=qty[k]||0,d=document.createElement("div");d.className="tile"+(n?" on":"");
+  d.innerHTML='<button type="button" class="tm"><i>'+it[1]+'</i><span>'+esc(t("i_"+k))+'</span></button><span class="q">'+n+'</span><button type="button" class="mn" aria-label="−">−</button>';
+  d.querySelector(".tm").onclick=function(){qty[k]=(qty[k]||0)+1;tiles();var q=$$(".tile")[IT.indexOf(it)];q.classList.add("pop")};
+  d.querySelector(".mn").onclick=function(){qty[k]=Math.max(0,(qty[k]||0)-1);tiles()};box.appendChild(d)});
+ $("#cust").textContent=cust.length?"+ "+cust.join(", "):""}
+$("#addo").onclick=function(){var v=$("#oth").value.trim();if(v){cust.push(v);$("#oth").value="";tiles()}};
+$("#oth").onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();$("#addo").click()}};
+
+/* ---------- language ---------- */
+function setLang(l){lang=l;document.documentElement.lang=l;
+ $$("[data-i]").forEach(function(e){e.innerHTML=t(e.dataset.i)});
+ $("#oth").placeholder=(lang!=="en"&&T[lang].ph_other)||PH;
+ $$(".langs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.l===l)});
+ fillD("fromD");fillD("toD");tiles();sync();try{localStorage.setItem("lang",l)}catch(e){}}
+$$(".langs button").forEach(function(b){b.onclick=function(){setLang(b.dataset.l)}});
+
+/* ---------- links ---------- */
+$$("[data-wa]").forEach(function(a){a.href=WA+"?text="+encodeURIComponent("Hi! I'd like a quote for a move.");a.target="_blank";a.rel="noopener"});
+$$("[data-ig]").forEach(function(a){a.href=IGP;a.target="_blank";a.rel="noopener"});
+$$("[data-mail]").forEach(function(a){a.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Moving quote request")});
+function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},3500)}
+
+/* ---------- wizard ---------- */
+var cm=function(){return $('input[name="cm"]:checked').value};
+function sync(){
+ var ab=$("#fromD").value==="ABROAD"||$("#toD").value==="ABROAD";$("#abroad").hidden=!ab;
+ $("#dt").style.opacity=$("#asap").checked?.4:1;
+ $("#igw").hidden=cm()!=="i";$("#emw").hidden=cm()!=="e";
+ $("#next").textContent=step===3?t({w:"sendw",i:"sendi",e:"sende"}[cm()]):t("next");
+ $("#back").hidden=step===0;
+ var pct=(step+1)*25-13;$("#fill").style.width=pct+"%";$("#pt").style.left=pct+"%";
+ $$("#sl span").forEach(function(s,i){s.className=i<=step?"on":""});
+ $$(".step").forEach(function(s){s.classList.toggle("on",+s.dataset.s===step)})}
+["fromD","toD"].forEach(function(i){$("#"+i).onchange=sync});$("#asap").onchange=sync;$$('input[name="cm"]').forEach(function(r){r.onchange=sync});
+$("#date").min=$("#date").value=new Date().toISOString().slice(0,10);
+function total(){return Object.keys(qty).reduce(function(a,k){return a+qty[k]},0)+cust.length}
+function check(s){var v=function(i){return $("#"+i).value.trim()},e="";
+ if(s===0&&!total())e="e_items";
+ if(s===1){if(!v("fromD")||!v("toD"))e="e_fd";else if(!v("from")||!v("to"))e="e_from";else if(!$("#abroad").hidden&&(!v("ctry")||!v("abA")))e="e_ctry"}
+ if(s===2&&!$("#asap").checked&&(!v("date")||!v("time")))e="e_date";
+ if(s===3){if(!v("name"))e="e_name";else if(!/^[+\d][\d\s()-]{6,}$/.test(v("phone")))e="e_phone";
+  else if(cm()==="e"&&!/^\S+@\S+\.\S+$/.test(v("email")))e="e_mail";else if(cm()==="i"&&v("igu").replace("@","").length<2)e="e_ig"}
+ $("#e"+s).textContent=e?t(e):"";return!e}
+$("#back").onclick=function(){step--;sync()};
+$("#next").onclick=function(){if(!check(step))return;if(step<3){step++;sync();$("#wiz").scrollIntoView({block:"start"});return}submit()};
+
+function label(id){var v=$("#"+id).value;if(v==="OTHER")return"Other town in Hungary";if(v==="ABROAD")return"Abroad";var d=D.filter(function(x){return"D"+x[0]===v})[0];return d?"District "+d[0]+" – "+d[1]:""}
+function submit(){
+ var v=function(i){return $("#"+i).value.trim()},names={en:"English",hu:"Hungarian",zh:"Chinese"},m=cm();
+ var items=IT.filter(function(i){return qty[i[0]]}).map(function(i){return qty[i[0]]+"× "+X["i_"+i[0]]}).concat(cust);
+ var r={name:v("name"),phone:v("phone"),email:v("email"),ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
+  from:label("fromD")+", "+v("from")+" ("+v("ffl")+")",to:label("toD")+", "+v("to")+" ("+v("tfl")+")",abroad:$("#abroad").hidden?"":v("ctry")+", "+v("abA"),
+  when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes"),status:"new",created:Date.now()};
+ var msg="Moving request – 24 Hour Budapest Moving\nName: "+r.name+"\nPhone: "+r.phone+(r.email?"\nEmail: "+r.email:"")+(r.ig?"\nInstagram: @"+r.ig:"")+"\nPreferred contact: "+{w:"WhatsApp",i:"Instagram",e:"Email"}[m]+"\nLanguage: "+names[lang]+"\nItems: "+r.items+"\nFrom: "+r.from+"\nTo: "+r.to+(r.abroad?"\nAbroad: "+r.abroad:"")+"\nWhen: "+r.when+(r.notes?"\nNotes: "+r.notes:"");
+ var go=function(){if(m==="w")window.open(WA+"?text="+encodeURIComponent(msg),"_blank","noopener");
+  else if(m==="e")location.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg);
+  else{try{navigator.clipboard.writeText(msg);toast(t("cp"))}catch(e){}window.open(IGDM,"_blank","noopener")}};
+ go();
+ var a=$("#again");a.className="btn cta "+({w:"w",i:"ig",e:"em"}[m]);a.textContent=t({w:"sendw",i:"sendi",e:"sende"}[m]);
+ a.href=m==="w"?WA+"?text="+encodeURIComponent(msg):m==="e"?"mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg):IGDM;
+ a.onclick=m==="i"?function(){try{navigator.clipboard.writeText(msg)}catch(e){}}:null;
+ if(SUPABASE_URL.indexOf("http")===0){try{fetch(SUPABASE_URL+"/rest/v1/requests",{method:"POST",headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({name:r.name,phone:r.phone,email:r.email||null,ig:r.ig||null,method:r.method,lang:r.lang,items:r.items,from_addr:r.from,to_addr:r.to,abroad:r.abroad||null,when_text:r.when,notes:r.notes||null}),keepalive:true}).catch(function(){})}catch(e){}}
+ $("#wiz").hidden=true;$("#done").hidden=false;confetti();$("#done").scrollIntoView({block:"center"})}
+$("#newr").onclick=function(){qty={};cust=[];step=0;["from","to","notes","abA","ctry"].forEach(function(i){$("#"+i).value=""});$("#done").hidden=true;$("#wiz").hidden=false;tiles();sync()};
+function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches||!document.body.animate)return;
+ var c=["#FF7A1A","#0B2A5B","#16407F","#FFB36B","#fff"];
+ for(var i=0;i<28;i++){var s=document.createElement("span");s.style.cssText="position:fixed;z-index:9;pointer-events:none;width:8px;height:12px;border-radius:2px;left:50%;top:40%;background:"+c[i%5];document.body.appendChild(s);
+  var dx=(Math.random()-.5)*420,dy=-80-Math.random()*160;
+  s.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+dx+"px,"+dy+"px) rotate("+Math.random()*540+"deg)",opacity:1,offset:.4},{transform:"translate("+dx*1.2+"px,"+(dy+380)+"px) rotate(720deg)",opacity:0}],{duration:1500+Math.random()*600,easing:"cubic-bezier(.2,.7,.3,1)"}).onfinish=(function(n){return function(){n.remove()}})(s)}}
+
+var saved="en";try{saved=localStorage.getItem("lang")||(navigator.language||"").slice(0,2)}catch(e){}
+setLang(saved==="hu"||saved==="zh"?saved:"en");
+})();
+</script>
+</body>
+</html>
