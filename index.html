@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>24 Hour Budapest Moving</title>
+<title>Team dashboard</title>
+<meta name="robots" content="noindex,nofollow">
 <style>
 :root{--blue:#0B2A5B;--blue2:#16407F;--bg:#F4F6F9;--card:#fff;--line:#DDE3EC;--ink:#14213D;--mute:#5A6785;--cta:#FF7A1A;--ctaink:#14213D;--ok:#0E8A6B;--bad:#B3261E;--wa:#1FAF55;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -109,262 +110,40 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 </head>
 <body>
 <header>
-<div class="logo">24 Hour <b>Budapest</b> Moving</div>
-<div class="hd"><nav role="tablist"><button role="tab" id="t-book" aria-selected="true" data-i="n_book">Book a move</button><button role="tab" id="t-admin" aria-selected="false">🔒 Admin</button></nav>
-<div class="langs" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="zh">中文</button><button data-l="hu">Magyar</button></div></div>
+<div class="logo">24 Hour <b>Budapest</b> Moving &middot; Team</div>
 </header>
-
-<section id="v-book">
-<div class="hero">
-<h1 data-i="h1">Moving Budapest, any hour of the day.</h1>
-<p data-i="hp">Two students, one van, one clear price. Tell us what needs to move and we'll confirm quickly, day or night.</p>
-<div class="qc"><span data-i="qc">Talk to us now:</span><a class="pill w" data-wa href="#">WhatsApp</a><a class="pill i" data-ig href="#">Instagram</a><a class="pill e" data-mail href="#"><span data-i="cem">Email</span></a></div>
-<div class="scene" aria-hidden="true"><div class="cloud"></div><div class="cloud"></div><div class="boxes">📦</div><div class="boxes">🗄️</div>
-<svg class="sky" viewBox="0 0 800 70" preserveAspectRatio="xMidYMax slice"><g fill="#2B5398" opacity=".75"><path d="M0 70V40Q60 20 120 38V70Z"/><rect x="20" y="28" width="70" height="14"/><rect x="55" y="14" width="8" height="14"/><path d="M52 14L59 4L66 14Z"/><rect x="330" y="28" width="10" height="42"/><rect x="430" y="28" width="10" height="42"/><rect x="240" y="58" width="300" height="4"/><rect x="600" y="40" width="150" height="30"/><path d="M650 40Q675 4 700 40Z"/><rect x="674" y="0" width="2" height="10"/><rect x="610" y="28" width="6" height="12"/><rect x="734" y="28" width="6" height="12"/></g><path d="M240 60Q290 30 335 30Q385 62 435 30Q480 30 540 60" fill="none" stroke="#2B5398" stroke-width="3" opacity=".75"/></svg>
-<div class="tr"><svg width="74" height="38" viewBox="0 0 74 38"><rect x="2" y="4" width="46" height="22" rx="3" fill="#fff"/><path d="M48 10h14l8 9v7H48Z" fill="#FF7A1A"/><path d="M52 13h9l5 6H52Z" fill="#0B2A5B" opacity=".7"/><rect x="10" y="11" width="30" height="3" rx="1.5" fill="#0B2A5B" opacity=".25"/><circle class="wh" cx="18" cy="29" r="6" fill="#14213D"/><circle class="wh" cx="58" cy="29" r="6" fill="#14213D"/><circle cx="18" cy="29" r="2" fill="#FFB36B"/><circle cx="58" cy="29" r="2" fill="#FFB36B"/></svg></div>
-<div class="rd"></div></div>
-</div>
-
-<main><div class="card" id="wiz">
-<div class="prog"><div class="fill" id="fill"></div><div class="pt" id="pt">🚚</div></div>
-<div class="sl" id="sl"><span data-i="st1">Items</span><span data-i="st2">Route</span><span data-i="st3">When</span><span data-i="st4">You</span></div>
-
-<div class="step on" data-s="0"><h2 data-i="s1">What are we moving?</h2><p class="hint" data-i="s1h">Tap an item to add it. Use + and − to change the number.</p>
-<div class="tiles" id="tiles"></div>
-<div class="row"><input id="oth" data-ph="ph_other" placeholder="e.g. piano, bike" aria-label="Other"><button type="button" class="btn ghost sm" id="addo" data-i="addb">Add</button></div><div id="cust" class="meta" style="margin-top:8px"></div>
-<div class="err" id="e0" role="alert"></div></div>
-
-<div class="step" data-s="1"><h2 data-i="s2">Where to?</h2>
-<div class="route" aria-hidden="true"><svg viewBox="0 0 360 74"><path d="M30 50 C 130 -10, 230 -10, 330 50" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="6 7" opacity=".4"/></svg><span class="pin a">📍</span><span class="van">🚚</span><span class="pin b">🏠</span></div>
-<div class="grid"><div><label for="fromD" data-i="ff">Pick-up district</label><select id="fromD"></select></div><div><label for="from" data-i="ffa">Pick-up street and number</label><input id="from" autocomplete="street-address"></div>
-<div><label for="ffl" data-i="ffl">Floor</label><select id="ffl"><option value="Ground floor" data-i="fl0">Ground floor</option><option value="Upstairs, lift" data-i="fl1">Upstairs, with lift</option><option value="Upstairs, no lift" data-i="fl2">Upstairs, no lift</option></select></div></div>
-<div class="grid"><div><label for="toD" data-i="ft">Drop-off district or destination</label><select id="toD"></select></div><div><label for="to" data-i="fta">Drop-off street and number</label><input id="to"></div>
-<div><label for="tfl" data-i="ftl">Floor</label><select id="tfl"><option value="Ground floor" data-i="fl0">Ground floor</option><option value="Upstairs, lift" data-i="fl1">Upstairs, with lift</option><option value="Upstairs, no lift" data-i="fl2">Upstairs, no lift</option></select></div></div>
-<div class="grid" id="abroad" hidden><div><label for="ctry" data-i="fcy">Country</label><input id="ctry"></div><div><label for="abA" data-i="fab">Full address abroad (type it)</label><input id="abA"></div></div>
-<div class="err" id="e1" role="alert"></div></div>
-
-<div class="step" data-s="2"><h2 data-i="s3">When?</h2>
-<label class="chk"><input type="checkbox" id="asap"> <span data-i="asap">As soon as possible (24/7)</span></label>
-<div class="grid" id="dt"><div><label for="date" data-i="fd">Date</label><input id="date" type="date"></div><div><label for="time" data-i="ftm">Time</label><input id="time" type="time" value="09:00"></div></div>
-<label for="notes" data-i="fn">Notes (parking, door codes, fragile items)</label><textarea id="notes" rows="2"></textarea>
-<div class="err" id="e2" role="alert"></div></div>
-
-<div class="step" data-s="3"><h2 data-i="s4">How should we reach you?</h2>
-<div class="grid"><div><label for="name" data-i="fnm">Your name</label><input id="name" autocomplete="name"></div><div><label for="phone" data-i="fp">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+36 …"></div></div>
-<label data-i="cm">Contact me on</label>
-<div class="cms"><label class="cm"><input type="radio" name="cm" value="w" checked><i>💬</i>WhatsApp</label><label class="cm"><input type="radio" name="cm" value="i"><i>📸</i>Instagram</label><label class="cm"><input type="radio" name="cm" value="e"><i>✉️</i><span data-i="cem">Email</span></label></div>
-<div id="igw" hidden><label for="igu" data-i="fig">Instagram username</label><input id="igu" placeholder="@"></div>
-<div id="emw" hidden><label for="email" data-i="fe">Email</label><input id="email" type="email" autocomplete="email"></div>
-<div class="err" id="e3" role="alert"></div></div>
-
-<div class="nav"><button type="button" class="btn ghost" id="back" data-i="back" hidden>Back</button><span></span><button type="button" class="btn cta" id="next" data-i="next">Next</button></div>
-</div>
-
-<div class="card done" id="done" hidden><div class="dl" aria-hidden="true"><span class="t">🚚</span><span class="bx" style="left:20%">📦</span><span class="bx" style="left:60%;animation-delay:.5s">🗄️</span></div>
-<h2 data-i="ok0">Request ready!</h2><p class="meta" data-i="ok1">Tap the button if your app didn't open. Your details are already filled in.</p>
-<div class="acts" style="justify-content:center"><a class="btn cta" id="again" href="#" target="_blank" rel="noopener"></a><button class="btn ghost" id="newr" data-i="ok3">New request</button></div></div>
-</main>
-
-<div class="info">
-<h2 data-i="sv0">What we move</h2>
-<div class="ig3"><div class="card"><span class="ic">🏢</span><h3 data-i="v1t">Flats and studios</h3><p class="meta" data-i="v1p">Loading, transport and carrying in, day and night.</p></div>
-<div class="card"><span class="ic">🗄️</span><h3 data-i="v2t">Wardrobes, tables, bulky items</h3><p class="meta" data-i="v2p">Careful transport between any two addresses in Budapest.</p></div>
-<div class="card"><span class="ic">🌍</span><h3 data-i="v3t">Local delivery and moves abroad</h3><p class="meta" data-i="v3p">Pick-up and drop-off at agreed times, abroad too.</p></div></div>
-<div class="card clock"><b></b><span data-i="ar0">Open 24/7 across all 23 districts</span></div>
-<div class="card"><h3 data-i="ab0">Two students, one van</h3><p class="meta" data-i="ab1" style="margin:6px 0 0">We're students in Budapest. Because help with a move outside office hours is hard to find, we pick up when others don't: early morning, late evening, weekends.</p></div>
-</div>
-</section>
-
-<section id="v-login" hidden><main><div class="card lg">
+<section id="v-login"><main><div class="card lg">
 <h2>Team sign-in</h2><p class="meta" style="margin:0">Only the two team members can open the dashboard.</p>
-<div class="steps"><span id="s1" class="on">1 · Your account</span><span id="s2">2 · Password</span><span id="s3">3 · Dashboard</span></div>
-<div id="lgMsg" class="meta" style="margin-bottom:12px"></div>
+<div id="lgMsg" class="meta" style="margin:12px 0"></div>
 <label for="lgE">Team email</label><input id="lgE" type="email" autocomplete="username" placeholder="name@gmail.com">
 <label for="lgP" style="margin-top:10px">Password</label><div class="pw"><input id="lgP" type="password" autocomplete="current-password"><button type="button" id="lgS">Show</button></div>
 <div class="err" id="lgErr" role="alert"></div>
 <div class="nav" style="margin-top:14px"><span></span><button type="button" class="btn cta" id="lgGo">Sign in</button></div>
 </div></main></section>
-
 <section id="v-admin" hidden><main style="margin-top:24px"><div class="card">
-<div class="lgbar"><span id="who"></span><button type="button" class="btn ghost sm" id="lgOut">Sign out</button></div>
+<div class="lgbar"><span id="who"></span><span><button type="button" class="btn ghost sm" id="rf">Refresh</button> <button type="button" class="btn ghost sm" id="lgOut">Sign out</button></span></div>
 <h2 style="margin-bottom:12px">Requests dashboard</h2>
 <div class="stats"><div class="stat"><b id="sNew">0</b>New</div><div class="stat"><b id="sConf">0</b>Confirmed</div><div class="stat"><b id="sToday">0</b>Today</div></div>
 <div class="chips" id="chips"></div><div id="list"></div>
 </div></main></section>
-
-<footer><span data-i="foot">Residential moves and bulky item transport across Budapest.</span> · 24 Hour Budapest Moving</footer>
-<div id="toast" role="status"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 (function(){
+/* ===== SUPABASE (public values, safe to keep in the page) ===== */
+var SUPABASE_URL="PASTE_YOUR_PROJECT_URL_HERE",SUPABASE_ANON_KEY="PASTE_YOUR_ANON_PUBLIC_KEY_HERE";
+/* ================================================================ */
 var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
 var esc=function(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML};
-var WA="https://wa.me/36205136024",IGP="https://www.instagram.com/24hbudapestmoving/",IGDM="https://ig.me/m/24hbudapestmoving",MAIL="853ephraim@gmail.com";
-
-/* ---------- translations (English = the page) ---------- */
-var T={
-hu:{n_book:"Foglalás",h1:"Költöztetés Budapesten, a nap bármely órájában.",hp:"Két egyetemista, egy furgon, egy világos ár. Mondja el, mit kell elvinni, és gyorsan visszaigazoljuk, nappal vagy éjjel.",qc:"Írjon nekünk most:",cem:"E-mail",
-st1:"Tárgyak",st2:"Útvonal",st3:"Időpont",st4:"Ön",s1:"Mit költöztetünk?",s1h:"Koppintson egy tárgyra a hozzáadáshoz. A + és − gombbal módosíthatja a darabszámot.",
-i_ward:"Szekrény",i_table:"Asztal",i_sofa:"Kanapé",i_bed:"Ágy",i_fridge:"Hűtő",i_wash:"Mosógép",i_box:"Dobozok",i_chair:"Székek",ph_other:"pl. zongora, kerékpár",addb:"Hozzáad",
-s2:"Hová megyünk?",ff:"Felvétel kerülete",ffa:"Felvétel utcája, házszáma",ffl:"Emelet",fl0:"Földszint",fl1:"Emeleten, van lift",fl2:"Emeleten, nincs lift",ft:"Leadás kerülete vagy célállomás",fta:"Leadás utcája, házszáma",ftl:"Emelet",fcy:"Ország",fab:"Teljes külföldi cím (kézzel írja be)",
-s3:"Mikor?",asap:"Minél előbb (0–24)",fd:"Dátum",ftm:"Időpont",fn:"Megjegyzés (parkolás, kapukód, törékeny tárgyak)",
-s4:"Hogyan érjük el Önt?",fnm:"Az Ön neve",fp:"Telefonszám",fe:"E-mail",fig:"Instagram felhasználónév",cm:"Ezen keressen minket",
-back:"Vissza",next:"Tovább",sendw:"Küldés WhatsAppon",sendi:"Küldés Instagramon",sende:"Küldés e-mailben",
-ok0:"A kérés elkészült!",ok1:"Koppintson a gombra, ha az alkalmazás nem nyílt meg. Az adatok már ki vannak töltve.",ok3:"Új kérés",
-sv0:"Mit költöztetünk",v1t:"Lakások és garzonok",v1p:"Berakodás, szállítás és beszállítás, éjjel-nappal.",v2t:"Szekrények, asztalok, nagy tárgyak",v2p:"Gondos szállítás bármely két budapesti cím között.",v3t:"Helyi kiszállítás és külföldi költözés",v3p:"Felvétel és leadás egyeztetett időpontban, külföldre is.",
-ar0:"Nonstop nyitva, mind a 23 kerületben",ab0:"Két egyetemista, egy furgon",ab1:"Budapesten tanuló diákok vagyunk. Mivel munkaidőn kívül nehéz segítséget találni költözéshez, mi akkor veszünk fel, amikor más nem: kora reggel, késő este, hétvégén.",
-foot:"Lakásköltöztetés és nagydarab tárgyak szállítása egész Budapesten.",
-e_items:"Adjon hozzá legalább egy tárgyat.",e_fd:"Válasszon kerületet mindkét helyhez.",e_from:"Adja meg a felvételi és a leadási címet.",e_ctry:"Adja meg az országot és a teljes címet.",e_date:"Válasszon dátumot és időpontot, vagy jelölje be a „minél előbb” lehetőséget.",
-e_name:"Kérjük, adja meg a nevét.",e_phone:"Adjon meg érvényes telefonszámot.",e_mail:"Adjon meg érvényes e-mail-címet.",e_ig:"Adja meg az Instagram felhasználónevét.",cp:"Az adatokat kimásoltuk. Illessze be a csevegésbe.",
-ch:"Válasszon…",ot:"Magyarországi más település (cím lent)",abr:"Külföld, Magyarországon kívül (cím lent)",dist:function(r,n){return r+". kerület – "+n}},
-zh:{n_book:"预约搬家",h1:"布达佩斯搬家，全天候随叫随到。",hp:"两位学生，一辆货车，一个清晰的价格。告诉我们要搬什么，我们会在白天或夜晚尽快确认。",qc:"立即联系我们：",cem:"电子邮件",
-st1:"物品",st2:"路线",st3:"时间",st4:"联系方式",s1:"要搬运什么？",s1h:"点击物品即可添加，用 + 和 − 调整数量。",
-i_ward:"衣柜",i_table:"桌子",i_sofa:"沙发",i_bed:"床",i_fridge:"冰箱",i_wash:"洗衣机",i_box:"纸箱",i_chair:"椅子",ph_other:"例如：钢琴、自行车",addb:"添加",
-s2:"搬到哪里？",ff:"取货所在区",ffa:"取货街道及门牌号",ffl:"楼层",fl0:"一楼",fl1:"楼上，有电梯",fl2:"楼上，无电梯",ft:"送达所在区或目的地",fta:"送达街道及门牌号",ftl:"楼层",fcy:"国家",fab:"国外完整地址（请手动填写）",
-s3:"什么时间？",asap:"尽快（全天24小时）",fd:"日期",ftm:"时间",fn:"备注（停车、门禁码、易碎物品）",
-s4:"如何联系您？",fnm:"您的姓名",fp:"电话号码",fe:"电子邮箱",fig:"Instagram 用户名",cm:"请通过以下方式联系我",
-back:"上一步",next:"下一步",sendw:"通过 WhatsApp 发送",sendi:"通过 Instagram 发送",sende:"通过电子邮件发送",
-ok0:"请求已准备好！",ok1:"如果应用没有自动打开，请点击按钮。您的信息已自动填好。",ok3:"新的请求",
-sv0:"我们搬运的内容",v1t:"住宅与单间搬家",v1p:"装车、运输、搬入新居，全天候服务。",v2t:"衣柜、桌子等大件物品",v2p:"在布达佩斯任意两个地址之间小心运输。",v3t:"同城配送与跨国搬家",v3p:"按约定时间取货和送货，也可前往国外。",
-ar0:"全天24小时，覆盖全部23个区",ab0:"两位学生，一辆货车",ab1:"我们是在布达佩斯读书的学生。因为非办公时间很难找到搬家帮手，所以我们决定在别人不接电话的时候接起电话：清晨、深夜、周末都可以。",
-foot:"布达佩斯全市住宅搬家与大件物品运输。",
-e_items:"请至少添加一件物品。",e_fd:"请为两个地点都选择所在区。",e_from:"请填写取货地址和送达地址。",e_ctry:"请填写国家和完整地址。",e_date:"请选择日期和时间，或勾选“尽快”。",
-e_name:"请输入您的姓名。",e_phone:"请输入有效的电话号码。",e_mail:"请输入有效的邮箱地址。",e_ig:"请输入您的 Instagram 用户名。",cp:"信息已复制，请粘贴到聊天窗口。",
-ch:"请选择…",ot:"匈牙利其他城镇（请在下方填写地址）",abr:"国外，匈牙利以外（请在下方填写地址）",dist:function(r,n,i){return"第"+i+"区 "+n}}};
-var EN={},lang="en";
-$$("[data-i]").forEach(function(e){if(!(e.dataset.i in EN))EN[e.dataset.i]=e.innerHTML});
-var PH=$("#oth").placeholder;
-var X={i_ward:"Wardrobe",i_table:"Table",i_sofa:"Sofa",i_bed:"Bed",i_fridge:"Fridge",i_wash:"Washing machine",i_box:"Boxes",i_chair:"Chairs",sendw:"Send on WhatsApp",sendi:"Send on Instagram",sende:"Send by email",
-e_items:"Add at least one item.",e_fd:"Choose a district for both places.",e_from:"Enter the pick-up and drop-off addresses.",e_ctry:"Enter the country and the full address.",e_date:"Choose a date and time, or tick “as soon as possible”.",
-e_name:"Please enter your name.",e_phone:"Enter a valid phone number.",e_mail:"Enter a valid email address.",e_ig:"Enter your Instagram username.",cp:"Details copied. Paste them in the chat.",
-ch:"Choose…",ot:"Other town in Hungary (type address below)",abr:"Abroad, outside Hungary (type address below)",dist:function(r,n){return"District "+r+" – "+n}};
-for(var k in X)EN[k]=X[k];
-function t(k){return(lang!=="en"&&T[lang]&&T[lang][k])||EN[k]}
-
-/* ---------- data ---------- */
-var D=[["I","Budavár"],["II","Pasarét, Rózsadomb"],["III","Óbuda-Békásmegyer"],["IV","Újpest"],["V","Belváros-Lipótváros"],["VI","Terézváros"],["VII","Erzsébetváros"],["VIII","Józsefváros"],["IX","Ferencváros"],["X","Kőbánya"],["XI","Újbuda"],["XII","Hegyvidék"],["XIII","Újlipótváros, Angyalföld"],["XIV","Zugló"],["XV","Rákospalota, Pestújhely"],["XVI","Mátyásföld, Sashalom"],["XVII","Rákosmente"],["XVIII","Pestszentlőrinc-Pestszentimre"],["XIX","Kispest"],["XX","Pesterzsébet"],["XXI","Csepel"],["XXII","Budafok-Tétény"],["XXIII","Soroksár"]];
-var IT=[["ward","🗄️"],["table","🍽️"],["sofa","🛋️"],["bed","🛏️"],["fridge","🧊"],["wash","🧺"],["box","📦"],["chair","🪑"]];
-var qty={},cust=[],step=0;
-
-function fillD(id){var s=$("#"+id),old=s.value;s.innerHTML="";
- function a(v,x){var o=document.createElement("option");o.value=v;o.textContent=x;s.appendChild(o)}
- a("",t("ch"));D.forEach(function(d,i){a("D"+d[0],(lang==="zh"?T.zh.dist:lang==="hu"?T.hu.dist:EN.dist)(d[0],d[1],i+1))});a("OTHER",t("ot"));a("ABROAD",t("abr"));s.value=old}
-function tiles(){var box=$("#tiles");box.innerHTML="";
- IT.forEach(function(it){var k=it[0],n=qty[k]||0,d=document.createElement("div");d.className="tile"+(n?" on":"");
-  d.innerHTML='<button type="button" class="tm"><i>'+it[1]+'</i><span>'+esc(t("i_"+k))+'</span></button><span class="q">'+n+'</span><button type="button" class="mn" aria-label="−">−</button>';
-  d.querySelector(".tm").onclick=function(){qty[k]=(qty[k]||0)+1;tiles();var q=$$(".tile")[IT.indexOf(it)];q.classList.add("pop")};
-  d.querySelector(".mn").onclick=function(){qty[k]=Math.max(0,(qty[k]||0)-1);tiles()};box.appendChild(d)});
- $("#cust").textContent=cust.length?"+ "+cust.join(", "):""}
-$("#addo").onclick=function(){var v=$("#oth").value.trim();if(v){cust.push(v);$("#oth").value="";tiles()}};
-$("#oth").onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();$("#addo").click()}};
-
-/* ---------- language ---------- */
-function setLang(l){lang=l;document.documentElement.lang=l;
- $$("[data-i]").forEach(function(e){e.innerHTML=t(e.dataset.i)});
- $("#oth").placeholder=(lang!=="en"&&T[lang].ph_other)||PH;
- $$(".langs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.l===l)});
- fillD("fromD");fillD("toD");tiles();sync();try{localStorage.setItem("lang",l)}catch(e){}}
-$$(".langs button").forEach(function(b){b.onclick=function(){setLang(b.dataset.l)}});
-
-/* ---------- links ---------- */
-$$("[data-wa]").forEach(function(a){a.href=WA+"?text="+encodeURIComponent("Hi! I'd like a quote for a move.");a.target="_blank";a.rel="noopener"});
-$$("[data-ig]").forEach(function(a){a.href=IGP;a.target="_blank";a.rel="noopener"});
-$$("[data-mail]").forEach(function(a){a.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Moving quote request")});
-function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},3500)}
-
-/* ---------- wizard ---------- */
-var cm=function(){return $('input[name="cm"]:checked').value};
-function sync(){
- var ab=$("#fromD").value==="ABROAD"||$("#toD").value==="ABROAD";$("#abroad").hidden=!ab;
- $("#dt").style.opacity=$("#asap").checked?.4:1;
- $("#igw").hidden=cm()!=="i";$("#emw").hidden=cm()!=="e";
- $("#next").textContent=step===3?t({w:"sendw",i:"sendi",e:"sende"}[cm()]):t("next");
- $("#back").hidden=step===0;
- var pct=(step+1)*25-13;$("#fill").style.width=pct+"%";$("#pt").style.left=pct+"%";
- $$("#sl span").forEach(function(s,i){s.className=i<=step?"on":""});
- $$(".step").forEach(function(s){s.classList.toggle("on",+s.dataset.s===step)})}
-["fromD","toD"].forEach(function(i){$("#"+i).onchange=sync});$("#asap").onchange=sync;$$('input[name="cm"]').forEach(function(r){r.onchange=sync});
-$("#date").min=$("#date").value=new Date().toISOString().slice(0,10);
-function total(){return Object.keys(qty).reduce(function(a,k){return a+qty[k]},0)+cust.length}
-function check(s){var v=function(i){return $("#"+i).value.trim()},e="";
- if(s===0&&!total())e="e_items";
- if(s===1){if(!v("fromD")||!v("toD"))e="e_fd";else if(!v("from")||!v("to"))e="e_from";else if(!$("#abroad").hidden&&(!v("ctry")||!v("abA")))e="e_ctry"}
- if(s===2&&!$("#asap").checked&&(!v("date")||!v("time")))e="e_date";
- if(s===3){if(!v("name"))e="e_name";else if(!/^[+\d][\d\s()-]{6,}$/.test(v("phone")))e="e_phone";
-  else if(cm()==="e"&&!/^\S+@\S+\.\S+$/.test(v("email")))e="e_mail";else if(cm()==="i"&&v("igu").replace("@","").length<2)e="e_ig"}
- $("#e"+s).textContent=e?t(e):"";return!e}
-$("#back").onclick=function(){step--;sync()};
-$("#next").onclick=function(){if(!check(step))return;if(step<3){step++;sync();$("#wiz").scrollIntoView({block:"start"});return}submit()};
-
-function label(id){var v=$("#"+id).value;if(v==="OTHER")return"Other town in Hungary";if(v==="ABROAD")return"Abroad";var d=D.filter(function(x){return"D"+x[0]===v})[0];return d?"District "+d[0]+" – "+d[1]:""}
-function submit(){
- var v=function(i){return $("#"+i).value.trim()},names={en:"English",hu:"Hungarian",zh:"Chinese"},m=cm();
- var items=IT.filter(function(i){return qty[i[0]]}).map(function(i){return qty[i[0]]+"× "+X["i_"+i[0]]}).concat(cust);
- var r={name:v("name"),phone:v("phone"),email:v("email"),ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
-  from:label("fromD")+", "+v("from")+" ("+v("ffl")+")",to:label("toD")+", "+v("to")+" ("+v("tfl")+")",abroad:$("#abroad").hidden?"":v("ctry")+", "+v("abA"),
-  when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes"),status:"new",created:Date.now()};
- var msg="Moving request – 24 Hour Budapest Moving\nName: "+r.name+"\nPhone: "+r.phone+(r.email?"\nEmail: "+r.email:"")+(r.ig?"\nInstagram: @"+r.ig:"")+"\nPreferred contact: "+{w:"WhatsApp",i:"Instagram",e:"Email"}[m]+"\nLanguage: "+names[lang]+"\nItems: "+r.items+"\nFrom: "+r.from+"\nTo: "+r.to+(r.abroad?"\nAbroad: "+r.abroad:"")+"\nWhen: "+r.when+(r.notes?"\nNotes: "+r.notes:"");
- var go=function(){if(m==="w")window.open(WA+"?text="+encodeURIComponent(msg),"_blank","noopener");
-  else if(m==="e")location.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg);
-  else{try{navigator.clipboard.writeText(msg);toast(t("cp"))}catch(e){}window.open(IGDM,"_blank","noopener")}};
- go();
- var a=$("#again");a.className="btn cta "+({w:"w",i:"ig",e:"em"}[m]);a.textContent=t({w:"sendw",i:"sendi",e:"sende"}[m]);
- a.href=m==="w"?WA+"?text="+encodeURIComponent(msg):m==="e"?"mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg):IGDM;
- a.onclick=m==="i"?function(){try{navigator.clipboard.writeText(msg)}catch(e){}}:null;
- if(store)store.doc("r"+Date.now()+Math.random().toString(36).slice(2,6)).set(r).catch(function(){});
- $("#wiz").hidden=true;$("#done").hidden=false;confetti();$("#done").scrollIntoView({block:"center"})}
-$("#newr").onclick=function(){qty={};cust=[];step=0;["from","to","notes","abA","ctry"].forEach(function(i){$("#"+i).value=""});$("#done").hidden=true;$("#wiz").hidden=false;tiles();sync()};
-function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches||!document.body.animate)return;
- var c=["#FF7A1A","#0B2A5B","#16407F","#FFB36B","#fff"];
- for(var i=0;i<28;i++){var s=document.createElement("span");s.style.cssText="position:fixed;z-index:9;pointer-events:none;width:8px;height:12px;border-radius:2px;left:50%;top:40%;background:"+c[i%5];document.body.appendChild(s);
-  var dx=(Math.random()-.5)*420,dy=-80-Math.random()*160;
-  s.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+dx+"px,"+dy+"px) rotate("+Math.random()*540+"deg)",opacity:1,offset:.4},{transform:"translate("+dx*1.2+"px,"+(dy+380)+"px) rotate(720deg)",opacity:0}],{duration:1500+Math.random()*600,easing:"cubic-bezier(.2,.7,.3,1)"}).onfinish=(function(n){return function(){n.remove()}})(s)}}
-
-/* ---------- tabs ---------- */
-function tab(a){var ok=a&&unlocked();$("#v-book").hidden=a;$("#v-admin").hidden=!ok;$("#v-login").hidden=!(a&&!ok);a=a&&ok||a;$("#t-book").setAttribute("aria-selected",!a);$("#t-admin").setAttribute("aria-selected",a);if(a&&unlocked())renderAdmin();window.scrollTo(0,0)}
-$("#t-book").onclick=function(){tab(false)};$("#t-admin").onclick=function(){tab(true)};
-
-
-/* ---------- admin sign-in ---------- */
-var ALLOW=["853ephraim@gmail.com","asiru426@gmail.com"],SALT="6e4fc867b54021e25dd94058dae57a0c",HASH="22506964a6febe1982ec5bb6152c746b01f47944e056a6f9898f77e09754a982",ITER=210000,IDLE=15*60*1000;
-var session=null,fails=0,lockUntil=0,idleT=null,viewer=null;
-function unlocked(){return !!session&&Date.now()<session.exp}
-function hex(b){return[].map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
-function unhex(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
-async function derive(pw){var k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);return hex(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:unhex(SALT),iterations:ITER},k,256))}
-function same(a,b){if(a.length!==b.length)return false;var d=0;for(var i=0;i<a.length;i++)d|=a.charCodeAt(i)^b.charCodeAt(i);return d===0}
-function step(n){["s1","s2","s3"].forEach(function(id,i){$("#"+id).className=i+1<n?"ok":i+1===n?"on":""})}
-function lock(){session=null;clearTimeout(idleT);$("#lgP").value="";step(1);tab(true)}
-function touch(){if(!unlocked())return;session.exp=Date.now()+IDLE;clearTimeout(idleT);idleT=setTimeout(lock,IDLE)}
-["click","keydown","touchstart"].forEach(function(e){document.addEventListener(e,touch,{passive:true})});
-async function refreshViewer(){try{var u=await claude.use("user");viewer=u?await u.me():null}catch(e){viewer=null}
- var m=$("#lgMsg"),em=viewer&&viewer.email;
- if(!viewer||!viewer.id){m.textContent="Step 1: please sign in to your Claude account in this browser, then reopen this page.";step(1);return}
- if(em&&ALLOW.indexOf(em.toLowerCase())<0){m.textContent="This Claude account is not on the team list.";step(1);return}
- m.textContent="Account recognised. Enter your team email and password.";step(2)}
-$("#lgS").onclick=function(){var p=$("#lgP"),sh=p.type==="password";p.type=sh?"text":"password";this.textContent=sh?"Hide":"Show"};
-$("#lgGo").onclick=function(){$("#lgErr").textContent="Checking…";go().catch(function(x){$("#lgErr").textContent="Error: "+(x&&x.message||x)})};async function go(){var err=$("#lgErr");err.textContent="";
- if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
- var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
- var okId=viewer&&viewer.id&&await(async function(){var u=await claude.use("user");return u&&(await u.canEdit())})();
- var okMail=ALLOW.indexOf(e)>=0&&(!viewer.email||viewer.email.toLowerCase()===e);
- var okPw=false;try{okPw=same(await derive(p),HASH)}catch(x){}
- if(okId&&okMail&&okPw){fails=0;session={exp:Date.now()+IDLE};$("#who").textContent="Signed in as "+e;step(3);touch();tab(true);startFeed();return}
- fails++;await new Promise(function(r){setTimeout(r,600+fails*400)});
- if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
- else err.textContent=(okId?"":"[this Claude account lacks Editor access] ")+(okMail?"":"[email not on team list] ")+(okPw?"":"[password does not match] ")}
-$("#lgOut").onclick=lock;
-$("#lgP").addEventListener("keydown",function(e){if(e.key==="Enter")$("#lgGo").click()});
-
-/* ---------- admin ---------- */
-var store=null,reqs=[],filter="all";
+var sb=null,reqs=[],filter="all",fails=0,lockUntil=0,idleT=null,pollT=null,IDLE=15*60*1000;
+if(SUPABASE_URL.indexOf("http")===0&&window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}})}
+function view(signed){$("#v-admin").hidden=!signed;$("#v-login").hidden=signed;window.scrollTo(0,0)}
 var M={
 en:{new:["We received your request – 24 Hour Budapest Moving","Hi {n},\n\nThank you! We have received your moving request and will review it shortly. We'll get back to you soon.\n\n24 Hour Budapest Moving"],declined:["Update on your request – 24 Hour Budapest Moving","Hi {n},\n\nThank you for your request. Unfortunately we are not able to take this job. We're sorry for the inconvenience and hope to help you another time.\n\n24 Hour Budapest Moving"],confirmed:["Your move is confirmed – 24 Hour Budapest Moving","Hi {n},\n\nGood news: your move is confirmed. We'll arrive at the agreed time. Message us if anything changes.\n\n24 Hour Budapest Moving"],done:["Your move is complete – 24 Hour Budapest Moving","Hi {n},\n\nYour move is complete. Thank you for choosing us! We hope everything went smoothly.\n\n24 Hour Budapest Moving"]},
 hu:{new:["Megkaptuk a kérését – 24 Hour Budapest Moving","Kedves {n}!\n\nKöszönjük! Megkaptuk a költöztetési kérését, és hamarosan átnézzük. Rövidesen jelentkezünk.\n\n24 Hour Budapest Moving"],declined:["Tájékoztatás a kéréséről – 24 Hour Budapest Moving","Kedves {n}!\n\nKöszönjük a megkeresését. Sajnos ezt a munkát nem tudjuk vállalni. Elnézést kérünk a kellemetlenségért, és reméljük, hogy máskor segíthetünk.\n\n24 Hour Budapest Moving"],confirmed:["Költöztetése visszaigazolva – 24 Hour Budapest Moving","Kedves {n}!\n\nJó hír: a költöztetését visszaigazoltuk. A megbeszélt időpontban érkezünk. Ha bármi változik, írjon nekünk.\n\n24 Hour Budapest Moving"],done:["Költöztetése befejeződött – 24 Hour Budapest Moving","Kedves {n}!\n\nA költöztetés befejeződött. Köszönjük, hogy minket választott! Reméljük, minden rendben ment.\n\n24 Hour Budapest Moving"]},
 zh:{new:["我们已收到您的请求 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的联系！我们已收到您的搬家请求，将尽快审核并回复您。\n\n24 Hour Budapest Moving"],declined:["关于您的请求的通知 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的请求。很遗憾，我们暂时无法承接此次搬家。对此造成的不便深表歉意，希望下次能为您服务。\n\n24 Hour Budapest Moving"],confirmed:["您的搬家已确认 – 24 Hour Budapest Moving","{n}，您好！\n\n好消息：您的搬家已确认。我们将按约定时间到达。如有任何变动，请随时联系我们。\n\n24 Hour Budapest Moving"],done:["您的搬家已完成 – 24 Hour Budapest Moving","{n}，您好！\n\n您的搬家已完成。感谢您选择我们，希望一切顺利！\n\n24 Hour Budapest Moving"]}};
 function waNum(p){var d=p.replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);else if(d.indexOf("06")===0)d="36"+d.slice(2);return d}
 function msgFor(r){var x=(M[r.lang]||M.en)[r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
-function setStatus(r,s){if(unlocked()&&store)store.doc(r.id).update({status:s})}
+async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}load()}
 function renderAdmin(){
  var today=new Date().toISOString().slice(0,10);
  $("#sNew").textContent=reqs.filter(function(r){return r.status==="new"}).length;
@@ -386,11 +165,36 @@ function renderAdmin(){
   ["w","i","e"].sort(function(x,y){return(y===pref)-(x===pref)}).forEach(function(k){var o=opts[k];if(!o)return;
    lnk((k===pref?"★ ":"")+o[0],o[1],o[2],k==="i"?function(){try{navigator.clipboard.writeText(m[1])}catch(e){}}:null)});
   list.appendChild(el)})}
-var feedOn=false;function startFeed(){if(feedOn||!store)return;feedOn=true;store.orderBy("created","desc").onSnapshot(function(s){reqs=s.docs.map(function(x){var o=typeof x.data==="function"?x.data():x.data;o.id=x.id;return o});if(unlocked()&&!$("#v-admin").hidden)renderAdmin()},function(){})}
-(async function(){try{var db=await claude.use("db");if(db)store=db.collection("requests")}catch(e){}refreshViewer()})();
 
-var saved="en";try{saved=localStorage.getItem("lang")||(navigator.language||"").slice(0,2)}catch(e){}
-setLang(saved==="hu"||saved==="zh"?saved:"en");
+async function load(){
+ var r=await sb.from("requests").select("*").order("created_at",{ascending:false});
+ if(r.error){var denied=/permission|denied|jwt|401|403/i.test(r.error.message||"");
+  if(denied){await sb.auth.signOut();$("#lgErr").textContent="This account does not have access.";return false}
+  $("#list").innerHTML='<p class="meta">Could not load requests: '+esc(r.error.message)+'</p>';return true}
+ reqs=r.data.map(function(o){o.from=o.from_addr;o.to=o.to_addr;o.when=o.when_text||"";o.abroad=o.abroad||"";return o});
+ renderAdmin();return true}
+function touch(){if(!$("#v-admin")||$("#v-admin").hidden)return;clearTimeout(idleT);idleT=setTimeout(function(){sb.auth.signOut()},IDLE)}
+["click","keydown","touchstart"].forEach(function(e){document.addEventListener(e,touch,{passive:true})});
+async function enter(session){
+ if(!session){clearInterval(pollT);clearTimeout(idleT);reqs=[];$("#list").innerHTML="";$("#lgP").value="";view(false);return}
+ $("#who").textContent="Signed in as "+session.user.email;
+ var ok=await load();if(!ok)return;
+ view(true);touch();clearInterval(pollT);pollT=setInterval(load,20000)}
+$("#lgS").onclick=function(){var p=$("#lgP"),sh=p.type==="password";p.type=sh?"text":"password";this.textContent=sh?"Hide":"Show"};
+$("#lgOut").onclick=function(){sb.auth.signOut()};
+$("#rf").onclick=load;
+$("#lgP").addEventListener("keydown",function(e){if(e.key==="Enter")$("#lgGo").click()});
+$("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
+ if(!sb){err.textContent="Setup missing: add the Supabase URL and key at the top of this file.";return}
+ if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
+ var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
+ var r=await sb.auth.signInWithPassword({email:e,password:p});
+ if(!r.error)return; /* onAuthStateChange takes it from here */
+ fails++;await new Promise(function(z){setTimeout(z,600+fails*400)});
+ if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
+ else err.textContent="Email or password is not correct."};
+if(sb){sb.auth.onAuthStateChange(function(ev,session){if(ev==="INITIAL_SESSION"||ev==="SIGNED_IN"||ev==="SIGNED_OUT"){setTimeout(function(){enter(session)},0)}})}
+else{$("#lgMsg").textContent="Setup missing: add the Supabase URL and anon key at the top of this file."}
 })();
 </script>
 </body>
