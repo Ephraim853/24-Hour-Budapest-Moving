@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -344,7 +343,7 @@ async function refreshViewer(){try{var u=await claude.use("user");viewer=u?await
  if(em&&ALLOW.indexOf(em.toLowerCase())<0){m.textContent="This Claude account is not on the team list.";step(1);return}
  m.textContent="Account recognised. Enter your team email and password.";step(2)}
 $("#lgS").onclick=function(){var p=$("#lgP"),sh=p.type==="password";p.type=sh?"text":"password";this.textContent=sh?"Hide":"Show"};
-$("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
+$("#lgGo").onclick=function(){$("#lgErr").textContent="Checking…";go().catch(function(x){$("#lgErr").textContent="Error: "+(x&&x.message||x)})};async function go(){var err=$("#lgErr");err.textContent="";
  if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
  var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
  var okId=viewer&&viewer.id&&await(async function(){var u=await claude.use("user");return u&&(await u.canEdit())})();
@@ -353,7 +352,7 @@ $("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
  if(okId&&okMail&&okPw){fails=0;session={exp:Date.now()+IDLE};$("#who").textContent="Signed in as "+e;step(3);touch();tab(true);startFeed();return}
  fails++;await new Promise(function(r){setTimeout(r,600+fails*400)});
  if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
- else err.textContent=okId?"Email or password is not correct.":"Access denied. Sign in to the team's Claude account first."};
+ else err.textContent=(okId?"":"[this Claude account lacks Editor access] ")+(okMail?"":"[email not on team list] ")+(okPw?"":"[password does not match] ")}
 $("#lgOut").onclick=lock;
 $("#lgP").addEventListener("keydown",function(e){if(e.key==="Enter")$("#lgGo").click()});
 
