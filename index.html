@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,12 +100,18 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 [hidden]{display:none!important}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.lg{max-width:440px;margin:32px auto}.lg h2{margin-bottom:6px}.lg .steps{display:flex;gap:8px;margin:14px 0 18px;font-size:.82rem;color:var(--mute)}
+.lg .steps span{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.lg .steps span.on{border-color:var(--cta);color:var(--ink);font-weight:700}.lg .steps span.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
+.pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);font:inherit;font-size:.82rem;font-weight:700;background:transparent;border:0;color:var(--blue2);cursor:pointer;padding:8px}
+.lgbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;font-size:.88rem;color:var(--mute)}
 </style>
+
 </head>
 <body>
 <header>
 <div class="logo">24 Hour <b>Budapest</b> Moving</div>
-<div class="hd"><nav role="tablist"><button role="tab" id="t-book" aria-selected="true" data-i="n_book">Book a move</button><button role="tab" id="t-admin" aria-selected="false" hidden>Admin</button></nav>
+<div class="hd"><nav role="tablist"><button role="tab" id="t-book" aria-selected="true" data-i="n_book">Book a move</button><button role="tab" id="t-admin" aria-selected="false">🔒 Admin</button></nav>
 <div class="langs" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="zh">中文</button><button data-l="hu">Magyar</button></div></div>
 </header>
 
@@ -169,7 +176,18 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 </div>
 </section>
 
+<section id="v-login" hidden><main><div class="card lg">
+<h2>Team sign-in</h2><p class="meta" style="margin:0">Only the two team members can open the dashboard.</p>
+<div class="steps"><span id="s1" class="on">1 · Your account</span><span id="s2">2 · Password</span><span id="s3">3 · Dashboard</span></div>
+<div id="lgMsg" class="meta" style="margin-bottom:12px"></div>
+<label for="lgE">Team email</label><input id="lgE" type="email" autocomplete="username" placeholder="name@gmail.com">
+<label for="lgP" style="margin-top:10px">Password</label><div class="pw"><input id="lgP" type="password" autocomplete="current-password"><button type="button" id="lgS">Show</button></div>
+<div class="err" id="lgErr" role="alert"></div>
+<div class="nav" style="margin-top:14px"><span></span><button type="button" class="btn cta" id="lgGo">Sign in</button></div>
+</div></main></section>
+
 <section id="v-admin" hidden><main style="margin-top:24px"><div class="card">
+<div class="lgbar"><span id="who"></span><button type="button" class="btn ghost sm" id="lgOut">Sign out</button></div>
 <h2 style="margin-bottom:12px">Requests dashboard</h2>
 <div class="stats"><div class="stat"><b id="sNew">0</b>New</div><div class="stat"><b id="sConf">0</b>Confirmed</div><div class="stat"><b id="sToday">0</b>Today</div></div>
 <div class="chips" id="chips"></div><div id="list"></div>
@@ -304,8 +322,40 @@ function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches||!d
   s.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+dx+"px,"+dy+"px) rotate("+Math.random()*540+"deg)",opacity:1,offset:.4},{transform:"translate("+dx*1.2+"px,"+(dy+380)+"px) rotate(720deg)",opacity:0}],{duration:1500+Math.random()*600,easing:"cubic-bezier(.2,.7,.3,1)"}).onfinish=(function(n){return function(){n.remove()}})(s)}}
 
 /* ---------- tabs ---------- */
-function tab(a){$("#v-book").hidden=a;$("#v-admin").hidden=!a;$("#t-book").setAttribute("aria-selected",!a);$("#t-admin").setAttribute("aria-selected",a);if(a)renderAdmin();window.scrollTo(0,0)}
+function tab(a){var ok=a&&unlocked();$("#v-book").hidden=a;$("#v-admin").hidden=!ok;$("#v-login").hidden=!(a&&!ok);a=a&&ok||a;$("#t-book").setAttribute("aria-selected",!a);$("#t-admin").setAttribute("aria-selected",a);if(a&&unlocked())renderAdmin();window.scrollTo(0,0)}
 $("#t-book").onclick=function(){tab(false)};$("#t-admin").onclick=function(){tab(true)};
+
+
+/* ---------- admin sign-in ---------- */
+var ALLOW=["853ephraim@gmail.com","asiru426@gmail.com"],SALT="6e4fc867b54021e25dd94058dae57a0c",HASH="22506964a6febe1982ec5bb6152c746b01f47944e056a6f9898f77e09754a982",ITER=210000,IDLE=15*60*1000;
+var session=null,fails=0,lockUntil=0,idleT=null,viewer=null;
+function unlocked(){return !!session&&Date.now()<session.exp}
+function hex(b){return[].map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
+function unhex(h){var a=new Uint8Array(h.length/2);for(var i=0;i<a.length;i++)a[i]=parseInt(h.substr(i*2,2),16);return a}
+async function derive(pw){var k=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);return hex(await crypto.subtle.deriveBits({name:"PBKDF2",hash:"SHA-256",salt:unhex(SALT),iterations:ITER},k,256))}
+function same(a,b){if(a.length!==b.length)return false;var d=0;for(var i=0;i<a.length;i++)d|=a.charCodeAt(i)^b.charCodeAt(i);return d===0}
+function step(n){["s1","s2","s3"].forEach(function(id,i){$("#"+id).className=i+1<n?"ok":i+1===n?"on":""})}
+function lock(){session=null;clearTimeout(idleT);$("#lgP").value="";step(1);tab(true)}
+function touch(){if(!unlocked())return;session.exp=Date.now()+IDLE;clearTimeout(idleT);idleT=setTimeout(lock,IDLE)}
+["click","keydown","touchstart"].forEach(function(e){document.addEventListener(e,touch,{passive:true})});
+async function refreshViewer(){try{var u=await claude.use("user");viewer=u?await u.me():null}catch(e){viewer=null}
+ var m=$("#lgMsg"),em=viewer&&viewer.email;
+ if(!viewer||!viewer.id){m.textContent="Step 1: please sign in to your Claude account in this browser, then reopen this page.";step(1);return}
+ if(em&&ALLOW.indexOf(em.toLowerCase())<0){m.textContent="This Claude account is not on the team list.";step(1);return}
+ m.textContent="Account recognised. Enter your team email and password.";step(2)}
+$("#lgS").onclick=function(){var p=$("#lgP"),sh=p.type==="password";p.type=sh?"text":"password";this.textContent=sh?"Hide":"Show"};
+$("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
+ if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
+ var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
+ var okId=viewer&&viewer.id&&await(async function(){var u=await claude.use("user");return u&&(await u.canEdit())})();
+ var okMail=ALLOW.indexOf(e)>=0&&(!viewer.email||viewer.email.toLowerCase()===e);
+ var okPw=false;try{okPw=same(await derive(p),HASH)}catch(x){}
+ if(okId&&okMail&&okPw){fails=0;session={exp:Date.now()+IDLE};$("#who").textContent="Signed in as "+e;step(3);touch();tab(true);startFeed();return}
+ fails++;await new Promise(function(r){setTimeout(r,600+fails*400)});
+ if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
+ else err.textContent=okId?"Email or password is not correct.":"Access denied. Sign in to the team's Claude account first."};
+$("#lgOut").onclick=lock;
+$("#lgP").addEventListener("keydown",function(e){if(e.key==="Enter")$("#lgGo").click()});
 
 /* ---------- admin ---------- */
 var store=null,reqs=[],filter="all";
@@ -315,7 +365,7 @@ hu:{new:["Megkaptuk a kérését – 24 Hour Budapest Moving","Kedves {n}!\n\nK�
 zh:{new:["我们已收到您的请求 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的联系！我们已收到您的搬家请求，将尽快审核并回复您。\n\n24 Hour Budapest Moving"],declined:["关于您的请求的通知 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的请求。很遗憾，我们暂时无法承接此次搬家。对此造成的不便深表歉意，希望下次能为您服务。\n\n24 Hour Budapest Moving"],confirmed:["您的搬家已确认 – 24 Hour Budapest Moving","{n}，您好！\n\n好消息：您的搬家已确认。我们将按约定时间到达。如有任何变动，请随时联系我们。\n\n24 Hour Budapest Moving"],done:["您的搬家已完成 – 24 Hour Budapest Moving","{n}，您好！\n\n您的搬家已完成。感谢您选择我们，希望一切顺利！\n\n24 Hour Budapest Moving"]}};
 function waNum(p){var d=p.replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);else if(d.indexOf("06")===0)d="36"+d.slice(2);return d}
 function msgFor(r){var x=(M[r.lang]||M.en)[r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
-function setStatus(r,s){if(store)store.doc(r.id).update({status:s})}
+function setStatus(r,s){if(unlocked()&&store)store.doc(r.id).update({status:s})}
 function renderAdmin(){
  var today=new Date().toISOString().slice(0,10);
  $("#sNew").textContent=reqs.filter(function(r){return r.status==="new"}).length;
@@ -337,12 +387,8 @@ function renderAdmin(){
   ["w","i","e"].sort(function(x,y){return(y===pref)-(x===pref)}).forEach(function(k){var o=opts[k];if(!o)return;
    lnk((k===pref?"★ ":"")+o[0],o[1],o[2],k==="i"?function(){try{navigator.clipboard.writeText(m[1])}catch(e){}}:null)});
   list.appendChild(el)})}
-(async function(){try{
- var u=await claude.use("user"),db=await claude.use("db");
- if(db){store=db.collection("requests");
-  var adm=u&&(await u.canEdit());
-  if(adm){$("#t-admin").hidden=false;store.orderBy("created","desc").onSnapshot(function(s){reqs=s.docs.map(function(x){var o=typeof x.data==="function"?x.data():x.data;o.id=x.id;return o});if(!$("#v-admin").hidden)renderAdmin()},function(){})}}
-}catch(e){}})();
+var feedOn=false;function startFeed(){if(feedOn||!store)return;feedOn=true;store.orderBy("created","desc").onSnapshot(function(s){reqs=s.docs.map(function(x){var o=typeof x.data==="function"?x.data():x.data;o.id=x.id;return o});if(unlocked()&&!$("#v-admin").hidden)renderAdmin()},function(){})}
+(async function(){try{var db=await claude.use("db");if(db)store=db.collection("requests")}catch(e){}refreshViewer()})();
 
 var saved="en";try{saved=localStorage.getItem("lang")||(navigator.language||"").slice(0,2)}catch(e){}
 setLang(saved==="hu"||saved==="zh"?saved:"en");
