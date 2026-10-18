@@ -15,64 +15,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-app
 h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em}
 header{background:var(--blue);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);z-index:6}
 .logo{font-weight:900;font-size:1.1rem}.logo b{color:var(--cta)}
-.hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.langs{display:flex;gap:3px;background:rgba(255,255,255,.12);padding:3px;border-radius:999px}
-.langs button,nav button{font:inherit;font-weight:700;font-size:.88rem;color:#fff;background:transparent;border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
-.langs button[aria-pressed="true"]{background:#fff;color:var(--blue)}
-nav button{border:2px solid transparent}nav button[aria-selected="true"]{border-color:#fff;background:rgba(255,255,255,.16)}
-.hero{background:var(--blue);color:#fff;padding:22px 20px 112px;position:relative;overflow:hidden}
-.hero h1{font-size:clamp(1.9rem,5.5vw,3rem);max-width:660px;position:relative;z-index:1;animation:rise .6s ease both}
-.hero p{max-width:560px;color:#C9D6F0;margin:10px 0 0;position:relative;z-index:1;animation:rise .6s .15s ease both}
-.qc{position:relative;z-index:1;margin-top:18px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;animation:rise .6s .3s ease both}
-.qc span{font-weight:700;color:#C9D6F0}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:999px;font-weight:800;text-decoration:none;font-size:.95rem;color:#fff;border:2px solid transparent}
-.pill.w{background:var(--wa)}.pill.i{background:#C13584}.pill.e{background:var(--blue2);border-color:#5C80C4}
-.pill:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.scene{position:absolute;left:0;right:0;bottom:0;height:96px;pointer-events:none}
-.sky{position:absolute;left:0;bottom:6px;width:100%;height:70px}
-.rd{position:absolute;left:0;right:0;bottom:0;height:8px;background:#06112A;background-image:repeating-linear-gradient(90deg,#FFB36B 0 18px,transparent 18px 38px);background-size:38px 2px;background-repeat:repeat-x;background-position:0 3px;animation:roll 1s linear infinite}
-@keyframes roll{to{background-position:-38px 3px}}
-.tr{position:absolute;bottom:6px;left:-100px;animation:tdrive 16s linear infinite}.tr svg{display:block;animation:bob .5s ease-in-out infinite alternate}
-@keyframes tdrive{to{transform:translateX(calc(100vw + 140px))}}@keyframes bob{to{transform:translateY(-1.5px)}}
-.wh{transform-box:fill-box;transform-origin:center;animation:spin .5s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.cloud{position:absolute;height:14px;width:60px;border-radius:99px;background:rgba(255,255,255,.18);animation:drift 40s linear infinite}
-.cloud:nth-child(1){top:18px;animation-delay:-8s}.cloud:nth-child(2){top:44px;width:90px;animation-duration:60s;animation-delay:-20s}
-@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(calc(100vw + 120px))}}
-.boxes{position:absolute;right:6%;bottom:14px;font-size:22px;animation:hop 2.4s ease-in-out infinite}.boxes:nth-of-type(2){right:12%;animation-delay:.6s}
-@keyframes hop{0%,100%{transform:translateY(0)}40%{transform:translateY(-16px) rotate(-8deg)}}
-@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 main{max-width:860px;margin:-12px auto 30px;padding:0 16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 6px 20px rgba(11,42,91,.08)}
-.prog{position:relative;height:8px;background:var(--line);border-radius:99px;margin:6px 4px 30px}
-.fill{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:var(--cta);transition:width .5s ease;width:12%}
-.pt{position:absolute;top:-22px;transition:left .5s ease;transform:translateX(-50%);font-size:22px;left:12%}
-.sl{display:flex;justify-content:space-between;font-size:.82rem;font-weight:700;color:var(--mute);margin:-18px 0 18px}.sl .on{color:var(--ink)}
-.step{display:none;animation:rise .35s ease both}.step.on{display:block}
-.step h2{font-size:1.35rem;margin-bottom:4px}.hint{color:var(--mute);margin:0 0 14px}
-.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
-.tile{position:relative;border:2px solid var(--line);border-radius:14px;background:var(--bg);transition:border-color .2s,background .2s}
-.tile.on{border-color:var(--cta);background:rgba(255,122,26,.1)}
-.tm{width:100%;font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);background:transparent;border:0;padding:14px 6px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
-.tm i{font-style:normal;font-size:28px;transition:transform .25s}.tile.pop .tm i{animation:pop .4s cubic-bezier(.2,1.6,.4,1)}
-@keyframes pop{from{transform:scale(.4) rotate(-15deg)}to{transform:none}}
-.q{position:absolute;top:-8px;right:-8px;min-width:26px;height:26px;border-radius:99px;background:var(--cta);color:var(--ctaink);font-weight:900;display:none;place-items:center;padding:0 6px}
-.tile.on .q{display:grid}
-.mn{display:none;position:absolute;top:-8px;left:-8px;width:26px;height:26px;border-radius:99px;border:0;background:var(--blue2);color:#fff;font-weight:900;cursor:pointer}.tile.on .mn{display:block}
-.row{display:flex;gap:8px;margin-top:14px}.row input{flex:1}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:12px}
 label{display:block;font-weight:700;font-size:.9rem;margin-bottom:4px}
 input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:11px 12px;transition:border-color .2s,box-shadow .2s}
 input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{outline:3px solid var(--cta);outline-offset:2px;border-color:var(--blue2)}
-.route{height:74px;margin:6px 0 14px;position:relative}.route svg{width:100%;height:100%}
-.van{position:absolute;left:0;top:0;font-size:22px;offset-path:path("M30 50 C 130 -10, 230 -10, 330 50");offset-rotate:0deg;animation:go 4s ease-in-out infinite}
-@keyframes go{from{offset-distance:0%}to{offset-distance:100%}}
-.pin{position:absolute;bottom:0;font-size:22px}.pin.a{left:10px}.pin.b{right:10px;animation:bounce 1.2s infinite}@keyframes bounce{50%{transform:translateY(-6px)}}
-.chk{display:flex;gap:10px;align-items:center;border:2px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;font-weight:700;margin-bottom:12px}.chk input{width:20px;height:20px}.chk:has(input:checked){border-color:var(--cta);background:rgba(255,122,26,.1)}
-.cms{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.cm{border:2px solid var(--line);border-radius:14px;padding:12px 6px;text-align:center;font-weight:800;cursor:pointer;margin:0;transition:all .2s}
-.cm input{position:absolute;opacity:0;width:1px;height:1px}.cm i{display:block;font-style:normal;font-size:26px}
-.cm:has(input:checked){border-color:var(--cta);background:rgba(255,122,26,.12);transform:translateY(-2px)}.cm:has(input:focus-visible){outline:3px solid var(--cta)}
 .err{color:var(--bad);font-weight:700;min-height:1.3em;margin:6px 0}.err:not(:empty){animation:shake .3s}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .nav{display:flex;justify-content:space-between;gap:10px;margin-top:10px}
 .btn{border:0;border-radius:12px;padding:13px 22px;font:inherit;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .2s;text-decoration:none;display:inline-block}
 .btn:active{transform:scale(.97)}
@@ -80,17 +29,7 @@ input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{out
 .cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.5s infinite}@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
 .ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}.sm{padding:8px 12px;font-size:.88rem;border-radius:9px}
 .btn.w{background:var(--wa);color:#fff;box-shadow:0 4px 0 #14803D}.btn.ig{background:#C13584;color:#fff}.btn.em{background:var(--blue2);color:#fff}
-.done{text-align:center;padding:16px 6px}.done h2{margin:8px 0}
-.dl{position:relative;height:64px;margin:6px 0 14px;overflow:hidden;border-bottom:3px dashed var(--line)}
-.dl .t{position:absolute;bottom:4px;font-size:38px;animation:arrive 5s ease-in-out infinite}
-.dl .bx{position:absolute;bottom:6px;font-size:22px;animation:hop 1.6s ease-in-out infinite}
-@keyframes arrive{0%{left:-15%}40%,60%{left:50%}100%{left:112%}}
-.info{max-width:860px;margin:0 auto 40px;padding:0 16px;display:grid;gap:14px}
-.ig3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.ig3 .card{padding:18px}.ic{font-size:30px;display:inline-block;animation:bob2 2.2s ease-in-out infinite}.ig3 .card:nth-child(2) .ic{animation-delay:.4s}.ig3 .card:nth-child(3) .ic{animation-delay:.8s}
-@keyframes bob2{50%{transform:translateY(-5px)}}
-.meta{color:var(--mute);font-size:.92rem}.clock{display:flex;align-items:center;gap:10px;font-weight:800}.clock b{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--ok);animation:pulse 1.6s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,138,107,.6)}100%{box-shadow:0 0 0 12px transparent}}
+.meta{color:var(--mute);font-size:.92rem}
 footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;font-size:.92rem}
 #toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;transition:transform .3s;z-index:9;max-width:90vw}#toast.on{transform:translate(-50%,0)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{background:var(--bg);border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:1.8rem;color:var(--blue2)}
@@ -100,13 +39,10 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 [hidden]{display:none!important}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-.lg{max-width:440px;margin:32px auto}.lg h2{margin-bottom:6px}.lg .steps{display:flex;gap:8px;margin:14px 0 18px;font-size:.82rem;color:var(--mute)}
-.lg .steps span{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.lg .steps span.on{border-color:var(--cta);color:var(--ink);font-weight:700}.lg .steps span.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
+.lg{max-width:440px;margin:32px auto}.lg h2{margin-bottom:6px}
 .pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);font:inherit;font-size:.82rem;font-weight:700;background:transparent;border:0;color:var(--blue2);cursor:pointer;padding:8px}
 .lgbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;font-size:.88rem;color:var(--mute)}
 </style>
-
 </head>
 <body>
 <header>
@@ -126,24 +62,41 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 <div class="stats"><div class="stat"><b id="sNew">0</b>New</div><div class="stat"><b id="sConf">0</b>Confirmed</div><div class="stat"><b id="sToday">0</b>Today</div></div>
 <div class="chips" id="chips"></div><div id="list"></div>
 </div></main></section>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 (function(){
 /* ===== SUPABASE (public values, safe to keep in the page) ===== */
 var SUPABASE_URL="https://todhktlwtdqzedqxeabm.supabase.co",SUPABASE_ANON_KEY="sb_publishable__GYadVYPbyTYjgwAepPtdQ_PjJ_C6j1";
+/* ===== EMAILJS (automatic customer emails) - fill these 3 in =====
+   Get them at emailjs.com: Email Services -> Service ID, Email Templates -> Template ID, Account -> Public Key */
+var EMAILJS_SERVICE_ID="YOUR_SERVICE_ID",EMAILJS_TEMPLATE_ID="YOUR_TEMPLATE_ID",EMAILJS_PUBLIC_KEY="YOUR_PUBLIC_KEY";
 /* ================================================================ */
 var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
 var esc=function(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML};
-var sb=null,reqs=[],filter="all",fails=0,lockUntil=0,idleT=null,pollT=null,IDLE=15*60*1000;
+var sb=null,reqs=[],filter="all",fails=0,lockUntil=0,idleT=null,pollT=null,toastT=null,IDLE=15*60*1000;
 if(SUPABASE_URL.indexOf("http")===0&&window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}})}
 function view(signed){$("#v-admin").hidden=!signed;$("#v-login").hidden=signed;window.scrollTo(0,0)}
+function toast(t){var el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove("on")},4500)}
 var M={
 en:{new:["We received your request – 24 Hour Budapest Moving","Hi {n},\n\nThank you! We have received your moving request and will review it shortly. We'll get back to you soon.\n\n24 Hour Budapest Moving"],declined:["Update on your request – 24 Hour Budapest Moving","Hi {n},\n\nThank you for your request. Unfortunately we are not able to take this job. We're sorry for the inconvenience and hope to help you another time.\n\n24 Hour Budapest Moving"],confirmed:["Your move is confirmed – 24 Hour Budapest Moving","Hi {n},\n\nGood news: your move is confirmed. We'll arrive at the agreed time. Message us if anything changes.\n\n24 Hour Budapest Moving"],done:["Your move is complete – 24 Hour Budapest Moving","Hi {n},\n\nYour move is complete. Thank you for choosing us! We hope everything went smoothly.\n\n24 Hour Budapest Moving"]},
 hu:{new:["Megkaptuk a kérését – 24 Hour Budapest Moving","Kedves {n}!\n\nKöszönjük! Megkaptuk a költöztetési kérését, és hamarosan átnézzük. Rövidesen jelentkezünk.\n\n24 Hour Budapest Moving"],declined:["Tájékoztatás a kéréséről – 24 Hour Budapest Moving","Kedves {n}!\n\nKöszönjük a megkeresését. Sajnos ezt a munkát nem tudjuk vállalni. Elnézést kérünk a kellemetlenségért, és reméljük, hogy máskor segíthetünk.\n\n24 Hour Budapest Moving"],confirmed:["Költöztetése visszaigazolva – 24 Hour Budapest Moving","Kedves {n}!\n\nJó hír: a költöztetését visszaigazoltuk. A megbeszélt időpontban érkezünk. Ha bármi változik, írjon nekünk.\n\n24 Hour Budapest Moving"],done:["Költöztetése befejeződött – 24 Hour Budapest Moving","Kedves {n}!\n\nA költöztetés befejeződött. Köszönjük, hogy minket választott! Reméljük, minden rendben ment.\n\n24 Hour Budapest Moving"]},
 zh:{new:["我们已收到您的请求 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的联系！我们已收到您的搬家请求，将尽快审核并回复您。\n\n24 Hour Budapest Moving"],declined:["关于您的请求的通知 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的请求。很遗憾，我们暂时无法承接此次搬家。对此造成的不便深表歉意，希望下次能为您服务。\n\n24 Hour Budapest Moving"],confirmed:["您的搬家已确认 – 24 Hour Budapest Moving","{n}，您好！\n\n好消息：您的搬家已确认。我们将按约定时间到达。如有任何变动，请随时联系我们。\n\n24 Hour Budapest Moving"],done:["您的搬家已完成 – 24 Hour Budapest Moving","{n}，您好！\n\n您的搬家已完成。感谢您选择我们，希望一切顺利！\n\n24 Hour Budapest Moving"]}};
 function waNum(p){var d=p.replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);else if(d.indexOf("06")===0)d="36"+d.slice(2);return d}
-function msgFor(r){var x=(M[r.lang]||M.en)[r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
-async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}load()}
+function msgFor(r,st){var x=(M[r.lang]||M.en)[st||r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
+/* Automatic email to the customer (in their own language) */
+async function sendMail(r,st){
+ if(!r.email)return"noemail";
+ if(EMAILJS_PUBLIC_KEY.indexOf("YOUR_")===0)return"notset";
+ var m=msgFor(r,st);
+ try{var res=await fetch("https://api.emailjs.com/api/v1.0/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({service_id:EMAILJS_SERVICE_ID,template_id:EMAILJS_TEMPLATE_ID,user_id:EMAILJS_PUBLIC_KEY,template_params:{to_email:r.email,to_name:r.name,subject:m[0],message:m[1]}})});
+  return res.ok?"sent":"failed"}catch(e){return"failed"}}
+async function setStatus(r,s){
+ var u=await sb.from("requests").update({status:s}).eq("id",r.id);
+ if(u.error){alert("Could not update: "+u.error.message);return}
+ var res=await sendMail(r,s);
+ toast(res==="sent"?"Status updated · email sent to "+r.email:res==="noemail"?"Status updated · customer left no email":res==="notset"?"Status updated · email not set up yet":"Status updated · email FAILED, use the button on the request");
+ load()}
 function renderAdmin(){
  var today=new Date().toISOString().slice(0,10);
  $("#sNew").textContent=reqs.filter(function(r){return r.status==="new"}).length;
@@ -160,6 +113,7 @@ function renderAdmin(){
   function lnk(txt,cls,href,fn){var x=document.createElement("a");x.className="btn sm "+cls;x.textContent=txt;x.href=href;x.target="_blank";x.rel="noopener";if(fn)x.onclick=fn;a.appendChild(x)}
   if(r.status==="new"){b("Confirm","cta",function(){setStatus(r,"confirmed")});b("Decline","ghost",function(){setStatus(r,"declined")})}
   if(r.status==="confirmed")b("Mark done","cta",function(){setStatus(r,"done")});
+  if(r.email)b("Resend email","ghost",async function(){var s=await sendMail(r,r.status);toast(s==="sent"?"Email sent to "+r.email:"Email could not be sent")});
   var m=msgFor(r),pref=r.method;
   var opts={w:["WhatsApp","w","https://wa.me/"+waNum(r.phone)+"?text="+encodeURIComponent(m[1])],e:r.email?["Email","em","mailto:"+encodeURIComponent(r.email)+"?subject="+encodeURIComponent(m[0])+"&body="+encodeURIComponent(m[1])]:null,i:r.ig?["Instagram","ig","https://ig.me/m/"+encodeURIComponent(r.ig)]:null};
   ["w","i","e"].sort(function(x,y){return(y===pref)-(x===pref)}).forEach(function(k){var o=opts[k];if(!o)return;
