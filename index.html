@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,7 +119,7 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 <div class="hero">
 <h1 data-i="h1">Moving Budapest, any hour of the day.</h1>
 <p data-i="hp">Two students, one van, one clear price. Tell us what needs to move and we'll confirm quickly, day or night.</p>
-<div class="qc"><span data-i="qc">Talk to us now:</span><a class="pill i" data-ig href="#">Instagram</a><a class="pill e" data-mail href="#"><span data-i="cem">Email</span></a></div>
+<div class="qc"><span data-i="qc">Talk to us now:</span><a class="pill i" data-ig href="#">Instagram</a></div>
 <div class="scene" aria-hidden="true"><div class="cloud"></div><div class="cloud"></div><div class="boxes">📦</div><div class="boxes">🗄️</div>
 <svg class="sky" viewBox="0 0 800 70" preserveAspectRatio="xMidYMax slice"><g fill="#2B5398" opacity=".75"><path d="M0 70V40Q60 20 120 38V70Z"/><rect x="20" y="28" width="70" height="14"/><rect x="55" y="14" width="8" height="14"/><path d="M52 14L59 4L66 14Z"/><rect x="330" y="28" width="10" height="42"/><rect x="430" y="28" width="10" height="42"/><rect x="240" y="58" width="300" height="4"/><rect x="600" y="40" width="150" height="30"/><path d="M650 40Q675 4 700 40Z"/><rect x="674" y="0" width="2" height="10"/><rect x="610" y="28" width="6" height="12"/><rect x="734" y="28" width="6" height="12"/></g><path d="M240 60Q290 30 335 30Q385 62 435 30Q480 30 540 60" fill="none" stroke="#2B5398" stroke-width="3" opacity=".75"/></svg>
 <div class="tr"><svg width="74" height="38" viewBox="0 0 74 38"><rect x="2" y="4" width="46" height="22" rx="3" fill="#fff"/><path d="M48 10h14l8 9v7H48Z" fill="#FF7A1A"/><path d="M52 13h9l5 6H52Z" fill="#0B2A5B" opacity=".7"/><rect x="10" y="11" width="30" height="3" rx="1.5" fill="#0B2A5B" opacity=".25"/><circle class="wh" cx="18" cy="29" r="6" fill="#14213D"/><circle class="wh" cx="58" cy="29" r="6" fill="#14213D"/><circle cx="18" cy="29" r="2" fill="#FFB36B"/><circle cx="58" cy="29" r="2" fill="#FFB36B"/></svg></div>
@@ -154,9 +153,9 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 <div class="step" data-s="3"><h2 data-i="s4">How should we reach you?</h2>
 <div class="grid"><div><label for="name" data-i="fnm">Your name</label><input id="name" autocomplete="name"></div><div><label for="phone" data-i="fp">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+36 …"></div></div>
 <label data-i="cm">Contact me on</label>
-<div class="cms"><label class="cm"><input type="radio" name="cm" value="i" checked><i>📸</i>Instagram</label><label class="cm"><input type="radio" name="cm" value="e"><i>✉️</i><span data-i="cem">Email</span></label></div>
+<div class="cms"><label class="cm"><input type="radio" name="cm" value="i" checked><i>📸</i>Instagram</label></div>
 <div id="igw" hidden><label for="igu" data-i="fig">Instagram username</label><input id="igu" placeholder="@"></div>
-<div id="emw" hidden><label for="email" data-i="fe">Email</label><input id="email" type="email" autocomplete="email"></div>
+
 <div class="err" id="e3" role="alert"></div></div>
 
 <div class="nav"><button type="button" class="btn ghost" id="back" data-i="back" hidden>Back</button><span></span><button type="button" class="btn cta" id="next" data-i="next">Next</button></div>
@@ -264,7 +263,7 @@ var cm=function(){return $('input[name="cm"]:checked').value};
 function sync(){
  var ab=$("#fromD").value==="ABROAD"||$("#toD").value==="ABROAD";$("#abroad").hidden=!ab;
  $("#dt").style.opacity=$("#asap").checked?.4:1;
- $("#igw").hidden=cm()!=="i";$("#emw").hidden=cm()!=="e";
+ $("#igw").hidden=cm()!=="i";
  $("#next").textContent=step===3?t({i:"sendi",e:"sende"}[cm()]):t("next");
  $("#back").hidden=step===0;
  var pct=(step+1)*25-13;$("#fill").style.width=pct+"%";$("#pt").style.left=pct+"%";
@@ -287,7 +286,7 @@ function label(id){var v=$("#"+id).value;if(v==="OTHER")return"Other town in Hun
 function submit(){
  var v=function(i){return $("#"+i).value.trim()},names={en:"English",hu:"Hungarian",zh:"Chinese"},m=cm();
  var items=IT.filter(function(i){return qty[i[0]]}).map(function(i){return qty[i[0]]+"× "+X["i_"+i[0]]}).concat(cust);
- var r={name:v("name"),phone:v("phone"),email:v("email"),ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
+ var r={name:v("name"),phone:v("phone"),email:"",ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
   from:label("fromD")+", "+v("from")+" ("+v("ffl")+")",to:label("toD")+", "+v("to")+" ("+v("tfl")+")",abroad:$("#abroad").hidden?"":v("ctry")+", "+v("abA"),
   when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes"),status:"new",created:Date.now()};
  var msg="Moving request – 24 Hour Budapest Moving\nName: "+r.name+"\nPhone: "+r.phone+(r.email?"\nEmail: "+r.email:"")+(r.ig?"\nInstagram: @"+r.ig:"")+"\nPreferred contact: "+{i:"Instagram",e:"Email"}[m]+"\nLanguage: "+names[lang]+"\nItems: "+r.items+"\nFrom: "+r.from+"\nTo: "+r.to+(r.abroad?"\nAbroad: "+r.abroad:"")+"\nWhen: "+r.when+(r.notes?"\nNotes: "+r.notes:"");
