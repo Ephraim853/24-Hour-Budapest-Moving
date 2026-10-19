@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Team dashboard</title>
+<title>ADMIN – Team dashboard</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 :root{--blue:#0B2A5B;--blue2:#16407F;--bg:#F4F6F9;--card:#fff;--line:#DDE3EC;--ink:#14213D;--mute:#5A6785;--cta:#FF7A1A;--ctaink:#14213D;--ok:#0E8A6B;--bad:#B3261E;--wa:#1FAF55;
@@ -105,12 +105,17 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 .lg .steps span{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.lg .steps span.on{border-color:var(--cta);color:var(--ink);font-weight:700}.lg .steps span.ok{border-color:var(--ok);color:var(--ok);font-weight:700}
 .pw{position:relative}.pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);font:inherit;font-size:.82rem;font-weight:700;background:transparent;border:0;color:var(--blue2);cursor:pointer;padding:8px}
 .lgbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;font-size:.88rem;color:var(--mute)}
+.em{font-size:.85rem;color:var(--mute)}.em.ok{color:var(--ok);font-weight:700}.em.bad{color:var(--bad);font-weight:700}.em.warn{color:#B26A00}
+.note{background:rgba(14,138,107,.1);border:1px solid var(--ok);border-radius:10px;padding:8px 12px;font-size:.88rem;margin:0 0 12px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--blue);color:#fff;padding:10px 16px;border-radius:10px;opacity:0;pointer-events:none;transition:.25s;z-index:9;max-width:90vw}#toast.on{opacity:1;transform:translateX(-50%)}
+header{background:#3B1A2E!important;border-bottom:4px solid var(--cta)}
+.adm{background:var(--cta);color:#14213D;font-size:.72rem;font-weight:900;letter-spacing:.08em;padding:3px 9px;border-radius:999px;margin-right:8px;vertical-align:middle}
 </style>
 
 </head>
 <body>
 <header>
-<div class="logo">24 Hour <b>Budapest</b> Moving &middot; Team</div>
+<div class="logo"><span class="adm">ADMIN ONLY</span>24 Hour <b>Budapest</b> Moving &middot; Team dashboard</div>
 </header>
 <section id="v-login"><main><div class="card lg">
 <h2>Team sign-in</h2><p class="meta" style="margin:0">Only the two team members can open the dashboard.</p>
@@ -122,11 +127,12 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 </div></main></section>
 <section id="v-admin" hidden><main style="margin-top:24px"><div class="card">
 <div class="lgbar"><span id="who"></span><span><button type="button" class="btn ghost sm" id="rf">Refresh</button> <button type="button" class="btn ghost sm" id="lgOut">Sign out</button></span></div>
-<h2 style="margin-bottom:6px">Requests dashboard</h2>
-<p class="meta" style="margin:0 0 4px">Customers are emailed automatically when you confirm, decline or finish a request. Both team emails get every new order.</p><p class="meta" id="note2" role="status" style="margin:0 0 12px;color:var(--ok);font-weight:700"></p>
+<h2 style="margin-bottom:12px">Requests dashboard</h2>
+<div class="note">✉️ Automatic emails are ON. Every new request is emailed with full details to <b>853ephraim@gmail.com</b> and <b>asiru426@gmail.com</b>. The customer is emailed automatically when you Accept, Decline or Mark completed.</div>
 <div class="stats"><div class="stat"><b id="sNew">0</b>New</div><div class="stat"><b id="sConf">0</b>Confirmed</div><div class="stat"><b id="sToday">0</b>Today</div></div>
 <div class="chips" id="chips"></div><div id="list"></div>
 </div></main></section>
+<div id="toast" role="status"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 (function(){
@@ -135,7 +141,6 @@ var SUPABASE_URL="https://todhktlwtdqzedqxeabm.supabase.co",SUPABASE_ANON_KEY="s
 /* ================================================================ */
 var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
 var esc=function(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML};
-var ALLOWED=["853ephraim@gmail.com","asiru426@gmail.com"];
 var sb=null,reqs=[],filter="all",fails=0,lockUntil=0,idleT=null,pollT=null,IDLE=15*60*1000;
 if(SUPABASE_URL.indexOf("http")===0&&window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}})}
 function view(signed){$("#v-admin").hidden=!signed;$("#v-login").hidden=signed;window.scrollTo(0,0)}
@@ -145,8 +150,17 @@ hu:{new:["Megkaptuk a kérését – 24 Hour Budapest Moving","Kedves {n}!\n\nK�
 zh:{new:["我们已收到您的请求 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的联系！我们已收到您的搬家请求，将尽快审核并回复您。\n\n24 Hour Budapest Moving"],declined:["关于您的请求的通知 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的请求。很遗憾，我们暂时无法承接此次搬家。对此造成的不便深表歉意，希望下次能为您服务。\n\n24 Hour Budapest Moving"],confirmed:["您的搬家已确认 – 24 Hour Budapest Moving","{n}，您好！\n\n好消息：您的搬家已确认。我们将按约定时间到达。如有任何变动，请随时联系我们。\n\n24 Hour Budapest Moving"],done:["您的搬家已完成 – 24 Hour Budapest Moving","{n}，您好！\n\n您的搬家已完成。感谢您选择我们，希望一切顺利！\n\n24 Hour Budapest Moving"]}};
 function waNum(p){var d=p.replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);else if(d.indexOf("06")===0)d="36"+d.slice(2);return d}
 function msgFor(r){var x=(M[r.lang]||M.en)[r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
-async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}
- $("#note2").textContent=r.email?"Saved as "+s+". An email to "+r.email+" is being sent automatically.":"Saved as "+s+". This customer left no email, so contact them by WhatsApp or Instagram.";load()}
+function toast(m){var e=$("#toast");e.textContent=m;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},4000)}
+var EL={new:"Request received",confirmed:"Accepted",declined:"Declined",done:"Completed"};
+function emailLine(r){var s;
+ if(!r.email)s='<span class="em warn">✉️ No email on file – contact by WhatsApp or Instagram</span>';
+ else if(r.last_email_error)s='<span class="em bad">⚠️ Email problem: '+esc(r.last_email_error)+'</span>';
+ else if(r.last_email)s='<span class="em ok">✉️ Customer emailed: '+esc(EL[r.last_email]||r.last_email)+'</span> <span class="em">· '+esc(new Date(r.last_email_at).toLocaleString())+'</span>';
+ else if(Date.now()-new Date(r.created_at).getTime()>600000)s='<span class="em">✉️ No automatic email recorded</span>';
+ else s='<span class="em">✉️ Sending email…</span>';
+ return'<div style="margin-top:6px">'+s+'</div>'}
+async function resend(r){var u=await sb.from("requests").update({resend_at:new Date().toISOString()}).eq("id",r.id);if(u.error){alert("Could not resend: "+u.error.message);return}toast("Email is being sent again.");setTimeout(load,3500)}
+async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}toast("Saved. The customer is being emailed automatically.");load();setTimeout(load,3500);setTimeout(load,9000)}
 function renderAdmin(){
  var today=new Date().toISOString().slice(0,10);
  $("#sNew").textContent=reqs.filter(function(r){return r.status==="new"}).length;
@@ -157,14 +171,15 @@ function renderAdmin(){
  var list=$("#list");list.innerHTML="";var rows=reqs.filter(function(r){return filter==="all"||r.status===filter});
  if(!rows.length){list.innerHTML='<p class="meta">No requests here yet.</p>';return}
  rows.forEach(function(r,i){var el=document.createElement("div");el.className="req";
-  el.innerHTML="<h3>"+esc(r.name)+'<span class="badge s-'+esc(r.status)+'">'+esc(r.status)+'</span></h3><div class="meta">'+esc(r.when)+" · "+esc(r.phone)+(r.email?" · "+esc(r.email):"")+(r.ig?" · @"+esc(r.ig):"")+" · "+esc(r.lang)+'</div><p style="margin:8px 0 2px"><b>'+esc(r.from)+"</b> → <b>"+esc(r.to)+"</b>"+(r.abroad?" ("+esc(r.abroad)+")":"")+'</p><div class="meta">'+esc(r.items)+(r.notes?" · "+esc(r.notes):"")+'</div><div class="acts"></div>';
+  el.innerHTML="<h3>"+esc(r.name)+'<span class="badge s-'+esc(r.status)+'">'+esc(r.status)+'</span></h3><div class="meta">'+esc(r.when)+" · "+esc(r.phone)+(r.email?" · "+esc(r.email):"")+(r.ig?" · @"+esc(r.ig):"")+" · "+esc(r.lang)+'</div><p style="margin:8px 0 2px"><b>'+esc(r.from)+"</b> → <b>"+esc(r.to)+"</b>"+(r.abroad?" ("+esc(r.abroad)+")":"")+'</p><div class="meta">'+esc(r.items)+(r.notes?" · "+esc(r.notes):"")+'</div>'+emailLine(r)+'<div class="acts"></div>';
   var a=el.querySelector(".acts");
   function b(txt,cls,fn){var x=document.createElement("button");x.className="btn sm "+cls;x.textContent=txt;x.onclick=fn;a.appendChild(x)}
   function lnk(txt,cls,href,fn){var x=document.createElement("a");x.className="btn sm "+cls;x.textContent=txt;x.href=href;x.target="_blank";x.rel="noopener";if(fn)x.onclick=fn;a.appendChild(x)}
-  if(r.status==="new"){b("Confirm","cta",function(){setStatus(r,"confirmed")});b("Decline","ghost",function(){setStatus(r,"declined")})}
-  if(r.status==="confirmed")b("Mark done","cta",function(){setStatus(r,"done")});
+  if(r.status==="new"){b("Accept","cta",function(){setStatus(r,"confirmed")});b("Decline","ghost",function(){setStatus(r,"declined")})}
+  if(r.status==="confirmed")b("Mark completed","cta",function(){setStatus(r,"done")});
+  if(r.email)b("Resend email","ghost",function(){resend(r)});
   var m=msgFor(r),pref=r.method;
-  var opts={w:["WhatsApp","w","https://wa.me/"+waNum(r.phone)+"?text="+encodeURIComponent(m[1])],e:r.email?["Email","em","mailto:"+encodeURIComponent(r.email)+"?subject="+encodeURIComponent(m[0])+"&body="+encodeURIComponent(m[1])]:null,i:r.ig?["Instagram","ig","https://ig.me/m/"+encodeURIComponent(r.ig)]:null};
+  var opts={w:["WhatsApp","w","https://wa.me/"+waNum(r.phone)+"?text="+encodeURIComponent(m[1])],e:r.email?["Email (manual)","em","mailto:"+encodeURIComponent(r.email)+"?subject="+encodeURIComponent(m[0])+"&body="+encodeURIComponent(m[1])]:null,i:r.ig?["Instagram","ig","https://ig.me/m/"+encodeURIComponent(r.ig)]:null};
   ["w","i","e"].sort(function(x,y){return(y===pref)-(x===pref)}).forEach(function(k){var o=opts[k];if(!o)return;
    lnk((k===pref?"★ ":"")+o[0],o[1],o[2],k==="i"?function(){try{navigator.clipboard.writeText(m[1])}catch(e){}}:null)});
   list.appendChild(el)})}
@@ -180,7 +195,6 @@ function touch(){if(!$("#v-admin")||$("#v-admin").hidden)return;clearTimeout(idl
 ["click","keydown","touchstart"].forEach(function(e){document.addEventListener(e,touch,{passive:true})});
 async function enter(session){
  if(!session){clearInterval(pollT);clearTimeout(idleT);reqs=[];$("#list").innerHTML="";$("#lgP").value="";view(false);return}
- if(ALLOWED.indexOf((session.user.email||"").toLowerCase())<0){$("#lgErr").textContent="This account does not have access.";sb.auth.signOut();return}
  $("#who").textContent="Signed in as "+session.user.email;
  var ok=await load();if(!ok)return;
  view(true);touch();clearInterval(pollT);pollT=setInterval(load,20000)}
@@ -192,7 +206,7 @@ $("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
  if(!sb){err.textContent="Setup missing: add the Supabase URL and key at the top of this file.";return}
  if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
  var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
- var r=ALLOWED.indexOf(e)<0?{error:true}:await sb.auth.signInWithPassword({email:e,password:p});
+ var r=await sb.auth.signInWithPassword({email:e,password:p});
  if(!r.error)return; /* onAuthStateChange takes it from here */
  fails++;await new Promise(function(z){setTimeout(z,600+fails*400)});
  if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
