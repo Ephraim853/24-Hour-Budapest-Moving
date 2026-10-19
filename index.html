@@ -153,7 +153,8 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 <div class="step" data-s="3"><h2 data-i="s4">How should we reach you?</h2>
 <div class="grid"><div><label for="name" data-i="fnm">Your name</label><input id="name" autocomplete="name"></div><div><label for="phone" data-i="fp">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+36 …"></div></div>
 <label data-i="cm">Contact me on</label>
-<div class="cms"><label class="cm"><input type="radio" name="cm" value="i" checked><i>📸</i>Instagram</label></div>
+<div class="cms"><label class="cm"><input type="radio" name="cm" value="i" checked><i>📸</i>Instagram</label><label class="cm"><input type="radio" name="cm" value="e"><i>✉️</i><span data-i="cem">Email</span></label></div>
+<div id="emw" hidden><label for="email" data-i="fe">Email</label><input id="email" type="email" autocomplete="email"></div>
 <div id="igw" hidden><label for="igu" data-i="fig">Instagram username</label><input id="igu" placeholder="@"></div>
 
 <div class="err" id="e3" role="alert"></div></div>
@@ -263,7 +264,7 @@ var cm=function(){return $('input[name="cm"]:checked').value};
 function sync(){
  var ab=$("#fromD").value==="ABROAD"||$("#toD").value==="ABROAD";$("#abroad").hidden=!ab;
  $("#dt").style.opacity=$("#asap").checked?.4:1;
- $("#igw").hidden=cm()!=="i";
+ $("#igw").hidden=cm()!=="i";$("#emw").hidden=cm()!=="e";
  $("#next").textContent=step===3?t({i:"sendi",e:"sende"}[cm()]):t("next");
  $("#back").hidden=step===0;
  var pct=(step+1)*25-13;$("#fill").style.width=pct+"%";$("#pt").style.left=pct+"%";
@@ -286,7 +287,7 @@ function label(id){var v=$("#"+id).value;if(v==="OTHER")return"Other town in Hun
 function submit(){
  var v=function(i){return $("#"+i).value.trim()},names={en:"English",hu:"Hungarian",zh:"Chinese"},m=cm();
  var items=IT.filter(function(i){return qty[i[0]]}).map(function(i){return qty[i[0]]+"× "+X["i_"+i[0]]}).concat(cust);
- var r={name:v("name"),phone:v("phone"),email:"",ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
+ var r={name:v("name"),phone:v("phone"),email:v("email"),ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
   from:label("fromD")+", "+v("from")+" ("+v("ffl")+")",to:label("toD")+", "+v("to")+" ("+v("tfl")+")",abroad:$("#abroad").hidden?"":v("ctry")+", "+v("abA"),
   when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes"),status:"new",created:Date.now()};
  var msg="Moving request – 24 Hour Budapest Moving\nName: "+r.name+"\nPhone: "+r.phone+(r.email?"\nEmail: "+r.email:"")+(r.ig?"\nInstagram: @"+r.ig:"")+"\nPreferred contact: "+{i:"Instagram",e:"Email"}[m]+"\nLanguage: "+names[lang]+"\nItems: "+r.items+"\nFrom: "+r.from+"\nTo: "+r.to+(r.abroad?"\nAbroad: "+r.abroad:"")+"\nWhen: "+r.when+(r.notes?"\nNotes: "+r.notes:"");
