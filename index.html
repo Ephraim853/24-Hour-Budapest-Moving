@@ -152,10 +152,11 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 
 <div class="step" data-s="3"><h2 data-i="s4">How should we reach you?</h2>
 <div class="grid"><div><label for="name" data-i="fnm">Your name</label><input id="name" autocomplete="name"></div><div><label for="phone" data-i="fp">Phone number</label><input id="phone" type="tel" autocomplete="tel" placeholder="+36 …"></div></div>
-<label data-i="cm">Contact me on</label>
-<div class="cms"><label class="cm"><input type="radio" name="cm" value="i" checked><i>📸</i>Instagram</label><label class="cm"><input type="radio" name="cm" value="e"><i>✉️</i><span data-i="cem">Email</span></label></div>
-<div id="emw" hidden><label for="email" data-i="fe">Email</label><input id="email" type="email" autocomplete="email"></div>
+<div><label for="email" data-i="fe">Email (booking updates are sent here)</label><input id="email" type="email" autocomplete="email" inputmode="email"></div>
+<label data-i="cm" style="margin-top:10px">Also contact me on</label>
+<div class="cms"><label class="cm"><input type="radio" name="cm" value="e" checked><i>✉️</i><span data-i="cem">Email</span></label><label class="cm"><input type="radio" name="cm" value="i"><i>📸</i>Instagram</label></div>
 <div id="igw" hidden><label for="igu" data-i="fig">Instagram username</label><input id="igu" placeholder="@"></div>
+<input id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
 <div class="err" id="e3" role="alert"></div></div>
 
@@ -163,8 +164,8 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 </div>
 
 <div class="card done" id="done" hidden><div class="dl" aria-hidden="true"><span class="t">🚚</span><span class="bx" style="left:20%">📦</span><span class="bx" style="left:60%;animation-delay:.5s">🗄️</span></div>
-<h2 data-i="ok0">Request ready!</h2><p class="meta" data-i="ok1">Tap the button if your app didn't open. Your details are already filled in.</p>
-<div class="acts" style="justify-content:center"><a class="btn cta" id="again" href="#" target="_blank" rel="noopener"></a><button class="btn ghost" id="newr" data-i="ok3">New request</button></div></div>
+<h2 data-i="ok0">Request sent!</h2><p class="meta" data-i="ok1">We emailed you a confirmation. You will get another email when we accept, decline or complete your request.</p><p class="meta" style="margin:4px 0 12px"><b id="okE"></b></p>
+<div class="acts" style="justify-content:center"><a class="btn ghost" id="again" href="#" target="_blank" rel="noopener"></a><button class="btn ghost" id="newr" data-i="ok3">New request</button></div></div>
 </main>
 
 <div class="info">
@@ -196,9 +197,9 @@ st1:"Tárgyak",st2:"Útvonal",st3:"Időpont",st4:"Ön",s1:"Mit költöztetünk?"
 i_ward:"Szekrény",i_table:"Asztal",i_sofa:"Kanapé",i_bed:"Ágy",i_fridge:"Hűtő",i_wash:"Mosógép",i_box:"Dobozok",i_chair:"Székek",ph_other:"pl. zongora, kerékpár",addb:"Hozzáad",
 s2:"Hová megyünk?",ff:"Felvétel kerülete",ffa:"Felvétel utcája, házszáma",ffl:"Emelet",fl0:"Földszint",fl1:"Emeleten, van lift",fl2:"Emeleten, nincs lift",ft:"Leadás kerülete vagy célállomás",fta:"Leadás utcája, házszáma",ftl:"Emelet",fcy:"Ország",fab:"Teljes külföldi cím (kézzel írja be)",
 s3:"Mikor?",asap:"Minél előbb (0–24)",fd:"Dátum",ftm:"Időpont",fn:"Megjegyzés (parkolás, kapukód, törékeny tárgyak)",
-s4:"Hogyan érjük el Önt?",fnm:"Az Ön neve",fp:"Telefonszám",fe:"E-mail",fig:"Instagram felhasználónév",cm:"Ezen keressen minket",
-back:"Vissza",next:"Tovább",sendi:"Küldés Instagramon",sende:"Küldés e-mailben",
-ok0:"A kérés elkészült!",ok1:"Koppintson a gombra, ha az alkalmazás nem nyílt meg. Az adatok már ki vannak töltve.",ok3:"Új kérés",
+s4:"Hogyan érjük el Önt?",fnm:"Az Ön neve",fp:"Telefonszám",fe:"E-mail (ide küldjük a foglalás állapotát)",fig:"Instagram felhasználónév",cm:"Instagramon is keressen",
+back:"Vissza",next:"Tovább",sub:"Kérés elküldése",igm:"Írjon nekünk Instagramon",e_send:"Nem sikerült elküldeni a kérést. Ellenőrizze a kapcsolatot és próbálja újra, vagy írjon nekünk Instagramon.",sendi:"Küldés Instagramon",sende:"Küldés e-mailben",
+ok0:"A kérés elküldve!",ok1:"Visszaigazoló e-mailt küldtünk Önnek. Újabb e-mailt kap, amikor elfogadjuk, elutasítjuk vagy teljesítjük a kérését.",ok3:"Új kérés",
 sv0:"Mit költöztetünk",v1t:"Lakások és garzonok",v1p:"Berakodás, szállítás és beszállítás, éjjel-nappal.",v2t:"Szekrények, asztalok, nagy tárgyak",v2p:"Gondos szállítás bármely két budapesti cím között.",v3t:"Helyi kiszállítás és külföldi költözés",v3p:"Felvétel és leadás egyeztetett időpontban, külföldre is.",
 ar0:"Nonstop nyitva, mind a 23 kerületben",ab0:"Két egyetemista, egy furgon",ab1:"Budapesten tanuló diákok vagyunk. Mivel munkaidőn kívül nehéz segítséget találni költözéshez, mi akkor veszünk fel, amikor más nem: kora reggel, késő este, hétvégén.",
 foot:"Lakásköltöztetés és nagydarab tárgyak szállítása egész Budapesten.",
@@ -210,9 +211,9 @@ st1:"物品",st2:"路线",st3:"时间",st4:"联系方式",s1:"要搬运什么？
 i_ward:"衣柜",i_table:"桌子",i_sofa:"沙发",i_bed:"床",i_fridge:"冰箱",i_wash:"洗衣机",i_box:"纸箱",i_chair:"椅子",ph_other:"例如：钢琴、自行车",addb:"添加",
 s2:"搬到哪里？",ff:"取货所在区",ffa:"取货街道及门牌号",ffl:"楼层",fl0:"一楼",fl1:"楼上，有电梯",fl2:"楼上，无电梯",ft:"送达所在区或目的地",fta:"送达街道及门牌号",ftl:"楼层",fcy:"国家",fab:"国外完整地址（请手动填写）",
 s3:"什么时间？",asap:"尽快（全天24小时）",fd:"日期",ftm:"时间",fn:"备注（停车、门禁码、易碎物品）",
-s4:"如何联系您？",fnm:"您的姓名",fp:"电话号码",fe:"电子邮箱",fig:"Instagram 用户名",cm:"请通过以下方式联系我",
-back:"上一步",next:"下一步",sendi:"通过 Instagram 发送",sende:"通过电子邮件发送",
-ok0:"请求已准备好！",ok1:"如果应用没有自动打开，请点击按钮。您的信息已自动填好。",ok3:"新的请求",
+s4:"如何联系您？",fnm:"您的姓名",fp:"电话号码",fe:"电子邮箱（预约进度将发送到这里）",fig:"Instagram 用户名",cm:"也可通过以下方式联系我",
+back:"上一步",next:"下一步",sub:"提交请求",igm:"通过 Instagram 联系我们",e_send:"请求发送失败。请检查网络后重试，或通过 Instagram 联系我们。",sendi:"通过 Instagram 发送",sende:"通过电子邮件发送",
+ok0:"请求已发送！",ok1:"我们已向您发送确认邮件。当我们接受、拒绝或完成您的请求时，您会再收到一封邮件。",ok3:"新的请求",
 sv0:"我们搬运的内容",v1t:"住宅与单间搬家",v1p:"装车、运输、搬入新居，全天候服务。",v2t:"衣柜、桌子等大件物品",v2p:"在布达佩斯任意两个地址之间小心运输。",v3t:"同城配送与跨国搬家",v3p:"按约定时间取货和送货，也可前往国外。",
 ar0:"全天24小时，覆盖全部23个区",ab0:"两位学生，一辆货车",ab1:"我们是在布达佩斯读书的学生。因为非办公时间很难找到搬家帮手，所以我们决定在别人不接电话的时候接起电话：清晨、深夜、周末都可以。",
 foot:"布达佩斯全市住宅搬家与大件物品运输。",
@@ -222,7 +223,7 @@ ch:"请选择…",ot:"匈牙利其他城镇（请在下方填写地址）",abr:"
 var EN={},lang="en";
 $$("[data-i]").forEach(function(e){if(!(e.dataset.i in EN))EN[e.dataset.i]=e.innerHTML});
 var PH=$("#oth").placeholder;
-var X={i_ward:"Wardrobe",i_table:"Table",i_sofa:"Sofa",i_bed:"Bed",i_fridge:"Fridge",i_wash:"Washing machine",i_box:"Boxes",i_chair:"Chairs",sendi:"Send on Instagram",sende:"Send by email",
+var X={i_ward:"Wardrobe",i_table:"Table",i_sofa:"Sofa",i_bed:"Bed",i_fridge:"Fridge",i_wash:"Washing machine",i_box:"Boxes",i_chair:"Chairs",sub:"Send request",igm:"Message us on Instagram",e_send:"Could not send your request. Check your connection and try again, or message us on Instagram.",
 e_items:"Add at least one item.",e_fd:"Choose a district for both places.",e_from:"Enter the pick-up and drop-off addresses.",e_ctry:"Enter the country and the full address.",e_date:"Choose a date and time, or tick “as soon as possible”.",
 e_name:"Please enter your name.",e_phone:"Enter a valid phone number.",e_mail:"Enter a valid email address.",e_ig:"Enter your Instagram username.",cp:"Details copied. Paste them in the chat.",
 ch:"Choose…",ot:"Other town in Hungary (type address below)",abr:"Abroad, outside Hungary (type address below)",dist:function(r,n){return"District "+r+" – "+n}};
@@ -264,8 +265,8 @@ var cm=function(){return $('input[name="cm"]:checked').value};
 function sync(){
  var ab=$("#fromD").value==="ABROAD"||$("#toD").value==="ABROAD";$("#abroad").hidden=!ab;
  $("#dt").style.opacity=$("#asap").checked?.4:1;
- $("#igw").hidden=cm()!=="i";$("#emw").hidden=cm()!=="e";
- $("#next").textContent=step===3?t({i:"sendi",e:"sende"}[cm()]):t("next");
+ $("#igw").hidden=cm()!=="i";
+ $("#next").textContent=step===3?t("sub"):t("next");
  $("#back").hidden=step===0;
  var pct=(step+1)*25-13;$("#fill").style.width=pct+"%";$("#pt").style.left=pct+"%";
  $$("#sl span").forEach(function(s,i){s.className=i<=step?"on":""});
@@ -278,26 +279,28 @@ function check(s){var v=function(i){return $("#"+i).value.trim()},e="";
  if(s===1){if(!v("fromD")||!v("toD"))e="e_fd";else if(!v("from")||!v("to"))e="e_from";else if(!$("#abroad").hidden&&(!v("ctry")||!v("abA")))e="e_ctry"}
  if(s===2&&!$("#asap").checked&&(!v("date")||!v("time")))e="e_date";
  if(s===3){if(!v("name"))e="e_name";else if(!/^[+\d][\d\s()-]{6,}$/.test(v("phone")))e="e_phone";
-  else if(cm()==="e"&&!/^\S+@\S+\.\S+$/.test(v("email")))e="e_mail";else if(cm()==="i"&&v("igu").replace("@","").length<2)e="e_ig"}
+  else if(!/^\S+@\S+\.\S+$/.test(v("email")))e="e_mail";else if(cm()==="i"&&v("igu").replace("@","").length<2)e="e_ig"}
  var el=$("#e"+s);if(e)el.dataset.ek=e;else delete el.dataset.ek;el.textContent=e?t(e):"";return!e}
 $("#back").onclick=function(){step--;sync()};
 $("#next").onclick=function(){if(!check(step))return;if(step<3){step++;sync();$("#wiz").scrollIntoView({block:"start"});return}submit()};
 
 function label(id){var v=$("#"+id).value;if(v==="OTHER")return"Other town in Hungary";if(v==="ABROAD")return"Abroad";var d=D.filter(function(x){return"D"+x[0]===v})[0];return d?"District "+d[0]+" – "+d[1]:""}
-function submit(){
- var v=function(i){return $("#"+i).value.trim()},names={en:"English",hu:"Hungarian",zh:"Chinese"},m=cm();
+async function submit(){
+ var v=function(i){return $("#"+i).value.trim()},m=cm();
  var items=IT.filter(function(i){return qty[i[0]]}).map(function(i){return qty[i[0]]+"× "+X["i_"+i[0]]}).concat(cust);
- var r={name:v("name"),phone:v("phone"),email:v("email"),ig:v("igu").replace("@",""),method:m,lang:lang,items:items.join(", "),
+ var r={name:v("name"),phone:v("phone"),email:v("email"),ig:m==="i"?v("igu").replace("@",""):"",method:m,lang:lang,items:items.join(", "),
   from:label("fromD")+", "+v("from")+" ("+v("ffl")+")",to:label("toD")+", "+v("to")+" ("+v("tfl")+")",abroad:$("#abroad").hidden?"":v("ctry")+", "+v("abA"),
-  when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes"),status:"new",created:Date.now()};
- var msg="Moving request – 24 Hour Budapest Moving\nName: "+r.name+"\nPhone: "+r.phone+(r.email?"\nEmail: "+r.email:"")+(r.ig?"\nInstagram: @"+r.ig:"")+"\nPreferred contact: "+{i:"Instagram",e:"Email"}[m]+"\nLanguage: "+names[lang]+"\nItems: "+r.items+"\nFrom: "+r.from+"\nTo: "+r.to+(r.abroad?"\nAbroad: "+r.abroad:"")+"\nWhen: "+r.when+(r.notes?"\nNotes: "+r.notes:"");
- var go=function(){if(m==="e")location.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg);
-  else{try{navigator.clipboard.writeText(msg);toast(t("cp"))}catch(e){}window.open(IGDM,"_blank","noopener")}};
- go();
- var a=$("#again");a.className="btn cta "+({i:"ig",e:"em"}[m]);a.textContent=t({i:"sendi",e:"sende"}[m]);
- a.href=m==="e"?"mailto:"+MAIL+"?subject="+encodeURIComponent("Moving request – "+r.name)+"&body="+encodeURIComponent(msg):IGDM;
- a.onclick=m==="i"?function(){try{navigator.clipboard.writeText(msg)}catch(e){}}:null;
- if(SUPABASE_URL.indexOf("http")===0){try{fetch(SUPABASE_URL+"/rest/v1/requests",{method:"POST",headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({name:r.name,phone:r.phone,email:r.email||null,ig:r.ig||null,method:r.method,lang:r.lang,items:r.items,from_addr:r.from,to_addr:r.to,abroad:r.abroad||null,when_text:r.when,notes:r.notes||null}),keepalive:true}).catch(function(){})}catch(e){}}
+  when:$("#asap").checked?"ASAP":v("date")+" "+v("time"),notes:v("notes")};
+ if(v("hp")){showDone(r);return} /* spam trap: real people never fill this hidden field */
+ var btn=$("#next"),el=$("#e3"),ok=false;btn.disabled=true;
+ try{var res=await fetch(SUPABASE_URL+"/rest/v1/requests",{method:"POST",headers:{"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+  body:JSON.stringify({name:r.name,phone:r.phone,email:r.email,ig:r.ig||null,method:r.method,lang:r.lang,items:r.items,from_addr:r.from,to_addr:r.to,abroad:r.abroad||null,when_text:r.when,notes:r.notes||null})});ok=res.ok}catch(e){}
+ btn.disabled=false;
+ if(!ok){el.dataset.ek="e_send";el.textContent=t("e_send");var a=$("#again");a.className="btn ghost";a.textContent=t("igm");a.href=IGDM;return}
+ showDone(r)}
+function showDone(r){
+ $("#okE").textContent=r.email;
+ var a=$("#again");a.className="btn ghost";a.textContent=t("igm");a.href=IGDM;
  $("#wiz").hidden=true;$("#done").hidden=false;confetti();$("#done").scrollIntoView({block:"center"})}
 $("#newr").onclick=function(){qty={};cust=[];step=0;["from","to","notes","abA","ctry"].forEach(function(i){$("#"+i).value=""});$("#done").hidden=true;$("#wiz").hidden=false;tiles();sync()};
 function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches||!document.body.animate)return;
