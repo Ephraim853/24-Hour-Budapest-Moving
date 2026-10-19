@@ -122,7 +122,8 @@ footer{background:var(--blue);color:#C9D6F0;padding:22px 20px;text-align:center;
 </div></main></section>
 <section id="v-admin" hidden><main style="margin-top:24px"><div class="card">
 <div class="lgbar"><span id="who"></span><span><button type="button" class="btn ghost sm" id="rf">Refresh</button> <button type="button" class="btn ghost sm" id="lgOut">Sign out</button></span></div>
-<h2 style="margin-bottom:12px">Requests dashboard</h2>
+<h2 style="margin-bottom:6px">Requests dashboard</h2>
+<p class="meta" style="margin:0 0 4px">Customers are emailed automatically when you confirm, decline or finish a request. Both team emails get every new order.</p><p class="meta" id="note2" role="status" style="margin:0 0 12px;color:var(--ok);font-weight:700"></p>
 <div class="stats"><div class="stat"><b id="sNew">0</b>New</div><div class="stat"><b id="sConf">0</b>Confirmed</div><div class="stat"><b id="sToday">0</b>Today</div></div>
 <div class="chips" id="chips"></div><div id="list"></div>
 </div></main></section>
@@ -134,6 +135,7 @@ var SUPABASE_URL="https://todhktlwtdqzedqxeabm.supabase.co",SUPABASE_ANON_KEY="s
 /* ================================================================ */
 var $=function(s){return document.querySelector(s)},$$=function(s){return[].slice.call(document.querySelectorAll(s))};
 var esc=function(s){var d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML};
+var ALLOWED=["853ephraim@gmail.com","asiru426@gmail.com"];
 var sb=null,reqs=[],filter="all",fails=0,lockUntil=0,idleT=null,pollT=null,IDLE=15*60*1000;
 if(SUPABASE_URL.indexOf("http")===0&&window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true}})}
 function view(signed){$("#v-admin").hidden=!signed;$("#v-login").hidden=signed;window.scrollTo(0,0)}
@@ -143,7 +145,8 @@ hu:{new:["Megkaptuk a kérését – 24 Hour Budapest Moving","Kedves {n}!\n\nK�
 zh:{new:["我们已收到您的请求 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的联系！我们已收到您的搬家请求，将尽快审核并回复您。\n\n24 Hour Budapest Moving"],declined:["关于您的请求的通知 – 24 Hour Budapest Moving","{n}，您好！\n\n感谢您的请求。很遗憾，我们暂时无法承接此次搬家。对此造成的不便深表歉意，希望下次能为您服务。\n\n24 Hour Budapest Moving"],confirmed:["您的搬家已确认 – 24 Hour Budapest Moving","{n}，您好！\n\n好消息：您的搬家已确认。我们将按约定时间到达。如有任何变动，请随时联系我们。\n\n24 Hour Budapest Moving"],done:["您的搬家已完成 – 24 Hour Budapest Moving","{n}，您好！\n\n您的搬家已完成。感谢您选择我们，希望一切顺利！\n\n24 Hour Budapest Moving"]}};
 function waNum(p){var d=p.replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);else if(d.indexOf("06")===0)d="36"+d.slice(2);return d}
 function msgFor(r){var x=(M[r.lang]||M.en)[r.status]||M.en.new;return[x[0],x[1].replace("{n}",r.name)]}
-async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}load()}
+async function setStatus(r,s){var u=await sb.from("requests").update({status:s}).eq("id",r.id);if(u.error){alert("Could not update: "+u.error.message);return}
+ $("#note2").textContent=r.email?"Saved as "+s+". An email to "+r.email+" is being sent automatically.":"Saved as "+s+". This customer left no email, so contact them by WhatsApp or Instagram.";load()}
 function renderAdmin(){
  var today=new Date().toISOString().slice(0,10);
  $("#sNew").textContent=reqs.filter(function(r){return r.status==="new"}).length;
@@ -177,6 +180,7 @@ function touch(){if(!$("#v-admin")||$("#v-admin").hidden)return;clearTimeout(idl
 ["click","keydown","touchstart"].forEach(function(e){document.addEventListener(e,touch,{passive:true})});
 async function enter(session){
  if(!session){clearInterval(pollT);clearTimeout(idleT);reqs=[];$("#list").innerHTML="";$("#lgP").value="";view(false);return}
+ if(ALLOWED.indexOf((session.user.email||"").toLowerCase())<0){$("#lgErr").textContent="This account does not have access.";sb.auth.signOut();return}
  $("#who").textContent="Signed in as "+session.user.email;
  var ok=await load();if(!ok)return;
  view(true);touch();clearInterval(pollT);pollT=setInterval(load,20000)}
@@ -188,7 +192,7 @@ $("#lgGo").onclick=async function(){var err=$("#lgErr");err.textContent="";
  if(!sb){err.textContent="Setup missing: add the Supabase URL and key at the top of this file.";return}
  if(Date.now()<lockUntil){err.textContent="Too many attempts. Try again in "+Math.ceil((lockUntil-Date.now())/1000)+" seconds.";return}
  var e=$("#lgE").value.trim().toLowerCase(),p=$("#lgP").value;
- var r=await sb.auth.signInWithPassword({email:e,password:p});
+ var r=ALLOWED.indexOf(e)<0?{error:true}:await sb.auth.signInWithPassword({email:e,password:p});
  if(!r.error)return; /* onAuthStateChange takes it from here */
  fails++;await new Promise(function(z){setTimeout(z,600+fails*400)});
  if(fails>=5){lockUntil=Date.now()+Math.min(30*60000,60000*Math.pow(2,fails-5));err.textContent="Too many attempts. Locked for a while."}
