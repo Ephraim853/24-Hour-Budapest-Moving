@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -250,7 +251,7 @@ function setLang(l){lang=l;document.documentElement.lang=l;
  $$("[data-i]").forEach(function(e){e.innerHTML=t(e.dataset.i)});
  $("#oth").placeholder=(lang!=="en"&&T[lang].ph_other)||PH;
  $$(".langs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.l===l)});
- fillD("fromD");fillD("toD");tiles();sync();try{localStorage.setItem("lang",l)}catch(e){}}
+ fillD("fromD");fillD("toD");tiles();sync();$$(".err").forEach(function(x){if(x.dataset.ek)x.textContent=t(x.dataset.ek)});try{localStorage.setItem("lang",l)}catch(e){}}
 $$(".langs button").forEach(function(b){b.onclick=function(){setLang(b.dataset.l)}});
 
 /* ---------- links ---------- */
@@ -278,7 +279,7 @@ function check(s){var v=function(i){return $("#"+i).value.trim()},e="";
  if(s===2&&!$("#asap").checked&&(!v("date")||!v("time")))e="e_date";
  if(s===3){if(!v("name"))e="e_name";else if(!/^[+\d][\d\s()-]{6,}$/.test(v("phone")))e="e_phone";
   else if(cm()==="e"&&!/^\S+@\S+\.\S+$/.test(v("email")))e="e_mail";else if(cm()==="i"&&v("igu").replace("@","").length<2)e="e_ig"}
- $("#e"+s).textContent=e?t(e):"";return!e}
+ var el=$("#e"+s);if(e)el.dataset.ek=e;else delete el.dataset.ek;el.textContent=e?t(e):"";return!e}
 $("#back").onclick=function(){step--;sync()};
 $("#next").onclick=function(){if(!check(step))return;if(step<3){step++;sync();$("#wiz").scrollIntoView({block:"start"});return}submit()};
 
